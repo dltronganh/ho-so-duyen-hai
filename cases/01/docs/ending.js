@@ -16,17 +16,18 @@ const baiKet = {
     <div class="news-deck">Chiếc ấn trong tủ kính đêm khai mạc chỉ là đồ giả. Kim ấn thật đã rời bàn thờ họ Tôn Thất từ ba tháng trước.</div>
     <div class="news-by">Phóng viên điều tra của Duyên Hải</div>
     <div class="news-cols" style="columns:3">
-      <p class="dropcap">Khi báo địa phương gọi trợ lý bảo tàng Lê Văn Định là kẻ "ôm ấn bỏ trốn", anh đang ngồi trên chuyến tàu S6 ra Huế.
+      <p class="dropcap">Khi báo địa phương viết như thể trợ lý bảo tàng Lê Văn Định đã ôm kim ấn bỏ trốn, anh đang ngồi trên chuyến tàu S6 ra Huế.
         Sổ bán vé ga Hoài Giang ghi rõ: lúc 20 giờ 52 tối thứ Bảy 15-3, người mang chứng minh nhân dân số 205 118 437, đúng số của Định,
-        mua vé đi Huế. Ga nằm cách trung tâm 12 km; muốn có mặt ở quầy vé lúc đó, Định phải rời bảo tàng trước 20 giờ 30,
-        tức là trước khi đèn tắt lúc 20 giờ 41.</p>
+        mua vé đi Huế. Ga nằm cách trung tâm 12 km, xe ôm mất 25–30 phút; muốn có mặt ở quầy vé lúc đó, Định phải rời bảo tàng chậm nhất khoảng 20 giờ 30,
+        tức là trước khi đèn tắt lúc 20 giờ 41. Còn "bóng người chạy vội ra phía cổng" lúc tối đèn chỉ là bác bảo vệ Sáu chạy ra đường xem cả khu có cúp điện không.</p>
       <p>Người cúi trên tủ kính trong bức ảnh flash lúc 20 giờ 50 mặc chiếc áo khoác ca-rô của anh Tôn Thất Vũ, con trai cụ Khải.
         Anh nói đã ngồi yên ở quán Hoa Sứ suốt lúc mất điện, nhưng chủ quán nhớ rõ anh bỏ đi khoảng hai mươi phút, về phía cửa sau bảo tàng,
-        rồi trở lại với ống quần lấm bùn. Cầu dao bảo tàng bị gạt bằng tay; tủ kính được mở bằng chìa, và chính anh Vũ đã ký nhận chìa số 2.</p>
+        rồi trở lại với ống quần lấm bùn. Cửa sau chỉ có chốt trong, và chốt đã bị kéo từ bên trong; cầu dao ngay hành lang sau bị gạt bằng tay;
+        tủ kính được mở bằng chìa, và chính anh Vũ đã ký nhận chìa số 2.</p>
       <p>Nhưng thứ anh Vũ lấy đi đêm đó không phải vàng. Sổ kê khai đồ thờ năm 1985 của cụ Khải ghi kim ấn nặng 11 lượng 2 chỉ, tức 420 gam,
         và con lân trên núm ấn bị sứt tai trái từ năm 1947. Chiếc ấn bàn giao cho bảo tàng chỉ nặng 186 gam, tai lân lành lặn.
-        Định đã phát hiện điều đó ngay chiều thứ Sáu và báo với Giám đốc bảo tàng, nhưng bị gạt đi.</p>
-      <p>Phiếu đặt hàng của một xưởng đúc đồng ở Phú Kiều cho thấy ngày 2-12-1996, "anh Vũ (Hoài Giang)" đặt đúc một chiếc ấn núm lân
+        Theo thư Định gửi chị, anh đã phát hiện điều đó ngay chiều thứ Sáu và báo với Giám đốc bảo tàng, nhưng bị gạt đi.</p>
+      <p>Liên phiếu lưu ở một xưởng đúc đồng tại Phú Kiều cho thấy ngày 2-12-1996, "anh Vũ (Hoài Giang)" đặt đúc một chiếc ấn núm lân
         bằng đồng mạ vàng, dặn "tai lân làm lành lặn cả hai bên". Ngày 21-12, ông Hồ Minh Tâm, tay buôn đồ cổ Sài Gòn, nhận phòng 204 khách sạn Sông Hoài;
         sổ tay của anh Vũ ghi đúng số máy nhắn tin trong mẩu quảng cáo "thu mua đồ cổ" của ông Tâm, kèm "P.204, 9h tối, mang hộp". Một tuần sau, món nợ 85 triệu của anh được trả đủ.</p>
       <p>Tháng 3, khi bảo tàng mượn kim ấn và hẹn đoàn Huế tới cân, đối chiếu ảnh vào sáng thứ Hai, chiếc ấn giả trở thành bằng chứng.
@@ -56,7 +57,12 @@ const hauTruyen = {
           Người đi cùng đoàn, và đứng ra thuyết minh trước khách tham quan, là anh Lê Văn Định, nay là cán bộ biên chế của bảo tàng.</p>
         <p>Cụ Tôn Thất Khải quyết định tặng hẳn kim ấn cho bảo tàng. "Để ở nhà, con cháu lại khổ vì nó. Để ở đây, cả thị xã giữ giùm", cụ nói, tay chống gậy,
           đứng lâu trước tủ kính.</p>
-        <p>Bà Phan Thị Nguyệt đã thôi giữ chức Giám đốc vì gạt đi phát hiện của nhân viên cho khỏi phải hoãn khai mạc; bà thừa nhận đã viết lời giới thiệu "còn nguyên vẹn" theo trí nhớ, không đối chiếu sổ kê khai của gia đình. Anh Vũ khai: hồi tháng Chạp anh dặn thợ làm lành tai lân "để thờ cho đẹp", vì nghĩ chẳng ai còn nhớ cái tai sứt, càng không ngờ có ngày kim ấn được đem đi triển lãm. Vụ án của anh Tôn Thất Vũ sẽ được đưa ra xét xử trong tháng 6.</p>
+        <p>Bà Phan Thị Nguyệt đã thôi giữ chức Giám đốc vì gạt đi phát hiện của nhân viên cho khỏi phải hoãn khai mạc. Bà thừa nhận vẫn cho in lời giới thiệu "còn nguyên vẹn" theo tấm ảnh chụp chiều thứ Sáu dù đã nghe Định báo, vì cho rằng chiếc cân đĩa cũ của bảo tàng cân sai.</p>
+        <p>Anh Tôn Thất Vũ khai: hồi tháng 12 năm ngoái anh dặn thợ làm lành tai lân, nói là "để thờ cho đẹp" cho thợ khỏi nghi mình làm đồ giả, và tin rằng cha mắt kém sẽ không nhận ra.
+          Tối 21-12 anh bán kim ấn thật cho ông Tâm giá 120 triệu đồng. Khi bảo tàng hẹn đoàn Huế tới cân và thử vàng, anh tính: ấn mất ở nhà thì công an chỉ soi người trong nhà, mất giữa đêm khai mạc đông người thì ai cũng có thể bị nghi, nhất là cậu trợ lý cứ cân đo chiếc ấn mãi mà cả bảo tàng đều thấy.
+          Lúc "ra ngoài hút thuốc" anh vòng qua hành lang sau kéo sẵn chốt cửa, sang quán ngồi một lát cho chủ quán thấy mặt, rồi quay lại gạt cầu dao, nép trong hành lang chờ khách thôi nhốn nháo mới lần theo tường tới tủ kính. Đèn flash nổ làm anh hoảng, chộp chiếc ấn, đậy vội nắp kính rồi chạy ra cửa sau, băng qua đường xuống chân cầu Đá ném chiếc ấn đồng xuống sông.</p>
+        <p>Ông Hồ Minh Tâm khai đã nhận lời tài trợ in sách giới thiệu triển lãm từ tháng Giêng, để lấy tiếng với bảo tàng và giới chơi đồ cổ miền Trung; tới khi nhận thiệp mời mới biết kim ấn được đem ra trưng bày, và ông tới dự để xem chiếc ấn giả có qua được mắt mọi người không.
+          Vụ án của anh Tôn Thất Vũ sẽ được đưa ra xét xử trong tháng 6.</p>
         <p class="small muted">Tủ kính mới có khoá hai lớp, và cầu dao giờ nằm trong một hộp có khoá riêng.</p>
       </div>
     </div>

@@ -1,6 +1,6 @@
 // SVG illustrations for case 01: newspaper photos, the catalogue photo, the ledger sketch, the town map, the ID portrait.
 // Photos are drawn in grey tones; the .photo CSS turns them into a halftone print, so only light/dark matters.
-// Clue-bearing details (plaid jacket, white suit and hat, wall clock 8:47, the seal's ears) are drawn large
+// Clue-bearing details (plaid jacket, white suit and hat, wall clock 8:50, the seal's ears) are drawn large
 // on purpose so they survive the dot screen. Facts must agree with the case facts.js.
 
 import { SKIN, HAIR, defs, standing, seated, displayCase, clock } from "../../js/figures.js";
@@ -86,10 +86,10 @@ export function sealPhoto(brokenEar = false) {
   // qilin knob: body, head, two whole ears, mane curls
   s += `<path d="M215 300 Q205 230 260 205 Q300 190 345 210 Q395 235 385 300 Z" fill="url(#${p}gold)"/>`;
   s += `<ellipse cx="300" cy="170" rx="62" ry="54" fill="url(#${p}gold)"/>`;
-  // The real seal lost its left ear in 1947 (drawn on the viewer's left, as in the family ledger sketch).
-  s += brokenEar ? `<path d="M252 128 L246 112 L256 110 L262 122 Z" fill="#d0d0d0" stroke="#3c3c3c" stroke-width="3"/>`
-    : `<path d="M250 132 L232 78 L276 118 Z" fill="#d0d0d0" stroke="#3c3c3c" stroke-width="3"/>`;
-  s += `<path d="M350 132 L368 78 L324 118 Z" fill="#d0d0d0" stroke="#3c3c3c" stroke-width="3"/>`;
+  // The real seal lost its own left ear in 1947: the knob faces the viewer, so the stub is on the viewer's right, as in the ledger sketch.
+  s += `<path d="M250 132 L232 78 L276 118 Z" fill="#d0d0d0" stroke="#3c3c3c" stroke-width="3"/>`;
+  s += brokenEar ? `<path d="M348 128 L354 112 L344 110 L338 122 Z" fill="#d0d0d0" stroke="#3c3c3c" stroke-width="3"/>`
+    : `<path d="M350 132 L368 78 L324 118 Z" fill="#d0d0d0" stroke="#3c3c3c" stroke-width="3"/>`;
   s += `<circle cx="276" cy="165" r="9" fill="#222"/><circle cx="324" cy="165" r="9" fill="#222"/>`;
   s += `<path d="M268 200 Q300 220 332 200" stroke="#222" stroke-width="6" fill="none"/>`;
   for (let i = 0; i < 6; i++) s += `<circle cx="${236 + i * 26}" cy="${236 + (i % 2) * 8}" r="11" fill="none" stroke="#4a4a4a" stroke-width="4"/>`;
@@ -97,20 +97,20 @@ export function sealPhoto(brokenEar = false) {
   return s;
 }
 
-/** Ink sketch in the 1985 family ledger: same seal, the LEFT ear (the qilin's own left) broken off, with a note. */
+/** Ink sketch in the 1985 family ledger: same seal seen from the front, its own left ear (viewer's right) broken off, with a note. */
 export function ledgerSketch() {
   return `<svg viewBox="0 0 320 250" xmlns="http://www.w3.org/2000/svg" style="width:300px;height:auto">
     <g fill="none" stroke="#3d2410" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
       <path d="M70 190 L250 190 L272 222 L48 222 Z"/>
       <path d="M100 190 Q92 140 128 124 Q160 112 192 126 Q226 142 220 190"/>
       <ellipse cx="160" cy="98" rx="42" ry="36"/>
-      <path d="M190 74 L203 38 L176 66"/>
-      <path d="M130 74 L124 60 M124 60 L132 63 M132 63 L128 70"/>
+      <path d="M130 74 L117 38 L144 66"/>
+      <path d="M190 74 L196 60 M196 60 L188 63 M188 63 L192 70"/>
       <circle cx="146" cy="96" r="4"/><circle cx="174" cy="96" r="4"/>
       <path d="M144 118 Q160 128 176 118"/>
-      <path d="M118 52 Q90 30 60 40" stroke-dasharray="4 4"/>
+      <path d="M202 52 Q222 40 238 42" stroke-dasharray="4 4"/>
     </g>
-    <text x="18" y="34" font-family="Dancing Script, cursive" font-size="19" fill="#3d2410">tai trái sứt (1947)</text>
+    <text x="302" y="34" text-anchor="end" font-family="Dancing Script, cursive" font-size="19" fill="#3d2410">tai trái sứt (1947)</text>
   </svg>`;
 }
 

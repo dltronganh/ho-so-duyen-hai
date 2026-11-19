@@ -42,7 +42,7 @@ const bao16 = {
         <div class="news-kicker">Đêm khai mạc triển lãm "Hoài Giang 100 năm"</div>
         <h1 class="news-head">Kim ấn trăm tuổi biến mất giữa lúc cúp điện</h1>
         <div class="news-deck">Trợ lý bảo tàng mất tích cùng đêm · Công an thị xã vào cuộc</div>
-        ${photo(emptyCasePhoto(), "Tủ kính trống trơn khi sảnh có điện trở lại. Ảnh: <b>Minh Đức</b>")}
+        ${photo(emptyCasePhoto(), "Tủ kính trống trơn khi công an tới hiện trường. Ảnh: <b>Minh Đức</b>")}
         <div class="news-by">Quang Huy</div>
         <div class="news-cols" style="columns:2">
           <p class="dropcap">Tối qua, ${wd("1997-03-15", "thứ Bảy")}, đêm khai mạc triển lãm "Hoài Giang 100 năm" tại Bảo tàng thị xã (3 Bạch Đằng) đã kết thúc
@@ -54,7 +54,7 @@ const bao16 = {
           <p>Kim ấn là đồ thờ gia truyền của dòng họ cụ <b>Tôn Thất Khải</b> (${age("khai", "1997-03-16", 74)} tuổi), được gia đình cho mượn trưng bày một tháng.
             Theo gia đình, ấn đúc bằng vàng ròng, nặng hơn mười lượng; bảo tàng dự định mua bảo hiểm cho hiện vật 1,5 tỷ đồng sau buổi giám định.</p>
           <p>Điều khiến dư luận chú ý: anh <b>Lê Văn Định</b> (${age("dinh", "1997-03-16", 24)} tuổi), trợ lý bảo tàng, người trực tiếp sắp đặt hiện vật,
-            đã không còn có mặt từ tối qua và tới sáng nay vẫn chưa về nhà. Theo một nguồn tin, trong lúc tối om có người thấy
+            đã không còn có mặt từ tối qua và tới lúc báo lên khuôn vẫn chưa về nhà. Theo một nguồn tin, trong lúc tối om có người thấy
             "một bóng người chạy vội ra phía cổng". Bà Nguyệt cho biết chiều thứ Sáu Định "có biểu hiện lạ, cứ cân đo hiện vật mãi".</p>
           <p>Trao đổi với phóng viên, cụ Khải chỉ nói: "Tôi già rồi, chỉ mong ấn của ông bà về lại nhà".</p>
           <p>Công an thị xã đã lập biên bản hiện trường và đang lấy lời khai các nhân chứng. Báo Hoài Giang sẽ tiếp tục đưa tin.</p>
@@ -78,7 +78,7 @@ const bao16 = {
         <div class="news-box">
           <h4>Tin ngắn</h4>
           <p class="small"><b>Trải nhựa đường Trần Phú.</b> Từ thứ Hai, đoạn từ chợ tới bưu điện cấm xe tải trong 10 ngày.</p>
-          <p class="small"><b>Mùa cá cơm.</b> Ghe ra khơi đêm qua về bến cầu Đá đầy khoang, giá cá cơm còn 2.500đ/ký.</p>
+          <p class="small"><b>Mùa cá cơm.</b> Ghe ra khơi từ chiều qua, rạng sáng nay về bến cầu Đá đầy khoang, giá cá cơm còn 2.500đ/ký.</p>
           <p class="small"><b>Tiêm phòng.</b> Trạm y tế phường 2 tiêm chủng cho trẻ em vào sáng thứ Tư.</p>
         </div>
         <div class="news-ad">
@@ -110,7 +110,7 @@ const bao16t3 = {
         <p class="dropcap">Hơn 200 hiện vật kể lại một trăm năm của Hoài Giang: từ tấm bản đồ bến sông thời Pháp, chiếc ghe bầu đóng bằng gỗ kiền kiền,
           cho tới bộ ảnh chợ cá những năm 1960. Nhưng khách tới tối thứ Bảy đều chen nhau trước một tủ kính nhỏ bên trái bục phát biểu:
           nơi đặt chiếc kim ấn núm hình con lân của cụ Tổng đốc Tôn Thất Hoài.</p>
-        <p>"Kim ấn nhà tôi giữ hơn trăm năm, bốn đời rồi. Đây là lần đầu nó ra khỏi nhà thờ họ", cụ Khải xúc động. Anh Tôn Thất Vũ, con trai cụ,
+        <p>"Kim ấn nhà tôi giữ hơn trăm năm, bốn đời rồi. Đây là lần đầu nó được đem ra cho bà con coi", cụ Khải xúc động. Anh Tôn Thất Vũ, con trai cụ,
           là người thay cha lo mọi thủ tục với bảo tàng.</p>
         <p>Trong số khách mời có ông Hồ Minh Tâm, nhà sưu tầm đồ cổ ở TP. Hồ Chí Minh, một trong những người góp tiền in sách giới thiệu triển lãm.
           "Đây là lần đầu tôi tới Hoài Giang. Phố biển nhỏ mà đẹp quá", ông Tâm nói.</p>
@@ -197,11 +197,11 @@ const hienTruong = {
     <p><b>3. Cầu dao tổng</b> (hành lang sau): lúc kiểm tra đang ở vị trí bật. Ông Sáu khai đã gạt lên lúc ${at("power_back", "21 giờ 00")}.
       Đề nghị Chi nhánh điện kiểm tra nguyên nhân.</p>
     <p><b>4. Cửa sau</b> (ra hẻm 12): khép hờ, chốt trong đã bị kéo ra. Không có dấu phá. Hẻm 12 đất ẩm, nhiều dấu chân lẫn lộn, không lấy được dấu.</p>
-    <p><b>5. Đồng hồ treo tường</b> sảnh chính: chạy đúng giờ (đối chiếu đồng hồ cán bộ lúc ${at("scene_report", "21 giờ 30")}).</p>
+    <p><b>5. Đồng hồ treo tường</b> sảnh chính (đồng hồ chạy pin): chạy đúng giờ (đối chiếu đồng hồ cán bộ lúc ${at("scene_report", "21 giờ 30")}).</p>
     <p><b>6. Theo nhân chứng:</b> mất điện lúc ${at("outage", "20 giờ 41")}, có điện lại lúc ${at("power_back", "21 giờ 00")};
       phát hiện mất hiện vật lúc ${at("case_found_empty", "21 giờ 02")}; báo công an lúc ${at("police_called", "21 giờ 10")}.
       Khoảng 60 khách có mặt; danh sách khách mời do bảo tàng cung cấp.</p>
-    <p><b>7.</b> Anh Lê Văn Định, trợ lý bảo tàng, không có mặt tại hiện trường. Đã báo gia đình.</p>
+    <p><b>7.</b> Anh Lê Văn Định, trợ lý bảo tàng, không có mặt tại hiện trường. Chưa liên lạc được gia đình.</p>
     <div class="typed-sign"><div>NGƯỜI CHỨNG KIẾN<div class="sign">Nguyệt</div><div class="sign" style="font-size:22px">Sáu</div></div>
       <div>NGƯỜI LẬP BIÊN BẢN<div class="sign">Phát</div>Huỳnh Tấn Phát</div></div>
     ${stamp("Công an<br>thị xã<br>Hoài Giang", "right:70px;bottom:48px")}
@@ -249,10 +249,10 @@ const khaiSau = {
     <div class="typed-sub">Hồi 10 giờ, ${wd("1997-03-16", "Chủ Nhật")} ngày ${dt("1997-03-16", "16-3-1997")}</div>
     <p>Người khai: <b>Nguyễn Văn Sáu</b>, ${age("sau", "1997-03-16", 56)} tuổi, bảo vệ Bảo tàng thị xã.</p>
     <div class="qa">
-      ${line("sau-1", "Đ: Năm giờ chiều thứ Bảy tôi khoá cửa sau, cài chốt bên trong như mọi ngày. Chìa cửa sau tôi giữ. Chìa tủ kính tôi không giữ.")}
+      ${line("sau-1", "Đ: Năm giờ chiều thứ Bảy tôi cài chốt cửa sau bên trong như mọi ngày. Cửa đó chỉ có cái chốt trong, không có ổ khoá: ai ở trong kéo chốt ra là mở được. Chìa tủ kính tôi không giữ.")}
       ${line("sau-2", "Đ: Tối đó tôi đứng ở cổng trước đón khách. Lúc khách mới vô, mấy người hỏi đường ra nhà vệ sinh ở hành lang sau, tôi chỉ.")}
-      ${line("sau-3", `Đ: Lúc mất điện tôi nhìn đồng hồ đeo tay thấy ${at("outage", "8 giờ 41")}. Tôi tưởng cúp điện cả khu nên chạy ra đường coi, thấy nhà hai bên vẫn sáng mới biết tại bảo tàng. Tôi quay vô phòng bảo vệ lấy đèn pin, coi hộp cầu chì sau tấm phông sân khấu trước vì tưởng dàn âm thanh làm nhảy cầu chì, không thấy gì, rồi mới vòng ra hành lang sau.`)}
-      ${line("sau-4", "Đ: Lúc tôi đang lục hộp cầu chì sau tấm phông thì nghe ngoài sảnh có tiếng đèn chụp ảnh nổ 'bụp' một cái. Rồi tôi đi cửa sau sân khấu ra hành lang sau. Hành lang chất đầy thùng gỗ đựng hiện vật, tối thui, tôi phải đi chậm.")}
+      ${line("sau-3", `Đ: Lúc mất điện tôi nhìn đồng hồ đeo tay thấy ${at("outage", "8 giờ 41")}. Tôi tưởng cúp điện cả khu nên chạy vội qua cổng ra đường coi (chắc có khách thấy tôi chạy ra trong lúc tối), ngoài đường xe cộ ồn nên chị Nguyệt gọi gì qua loa tôi không nghe rõ; thấy nhà hai bên vẫn sáng mới biết tại bảo tàng. Tôi quay vô phòng bảo vệ lấy đèn pin, coi hộp cầu chì sau tấm phông sân khấu trước vì tưởng dàn âm thanh làm nhảy cầu chì, không thấy gì, rồi mới vòng ra hành lang sau.`)}
+      ${line("sau-4", "Đ: Lúc tôi đang lục hộp cầu chì sau tấm phông thì nghe ngoài sảnh có tiếng đèn chụp ảnh nổ 'bụp' một cái. Rồi tôi đi cửa sau sân khấu ra hành lang sau. Hành lang chất đầy thùng gỗ đựng hiện vật, tối thui, đèn pin lại yếu, tôi còn vấp thùng gỗ làm rớt đèn, phải mò lại, nên đi mất một lúc.")}
       ${line("sau-5", `Đ: Tới tủ cầu dao thì thấy cần gạt nằm ở dưới. Tôi gạt lên, đèn sáng lại, đồng hồ tôi chỉ đúng ${at("power_back", "9 giờ")}.`)}
       ${line("sau-6", "Đ: Lúc đó cửa sau khép hờ, chốt trong bị kéo ra rồi. Ai kéo thì tôi không biết. Tôi không thấy ai ở hành lang.")}
       ${line("sau-7", "Đ: Cậu Định thì từ lúc bà Nguyệt phát biểu được một lúc, chừng hơn tám giờ, tôi không thấy nữa.")}
@@ -279,7 +279,7 @@ const banDo = {
 /** Ledger rows: [time, name, ID number, destination, train, car/seat, fare]. */
 const TICKETS = [
   ["19:41", "Nguyễn Thị Bích", "201 336 870", "Đà Nẵng", "S6", "3/12", "21.000"],
-  ["19:58", "Trần Văn Cường", "201 998 115", "Vinh", "S6", "4/31", "64.000"],
+  ["19:58", "Trần Văn Cường", "201 998 115", "Vinh", "S6", "4/31", "95.000"],
   ["20:14", "Phạm Thị Hồng", "211 404 522", "Nha Trang", "S5", "6/8", "52.000"],
   ["20:30", "Hồ Văn Thanh", "205 773 019", "Huế", "S6", "5/18", "38.000"],
   ["20:52", "Lê Văn Định", "205 118 437", "Huế", "S6", "5/20", "38.000"],

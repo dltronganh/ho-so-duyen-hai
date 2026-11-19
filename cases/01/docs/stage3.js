@@ -6,12 +6,12 @@ import { fisherPhoto } from "../art.js";
 import { policeHead, statementSign, dailyMast, goldBox } from "../../../js/docparts.js";
 
 const phieuDuc = {
-  id: "phieu_duc", stage: 3, kind: "Phiếu", label: "Một tờ phiếu (thu tại nhà anh Vũ)",
+  id: "phieu_duc", stage: 3, kind: "Phiếu", label: "Một tờ phiếu (thu tại làng đúc Phú Kiều)",
   html: () => `
   <div class="doc doc--receipt">
     <div class="receipt-head"><div class="small caps">Làng nghề đúc đồng Phú Kiều</div><h3>Xưởng đúc Ba Thành</h3>
       <div class="small">Chuông · lư · tượng · đồ thờ · phục chế đồ cổ</div></div>
-    <p class="center"><b>PHIẾU NHẬN ĐẶT HÀNG</b> · số 0412 · <i>liên 2 (giao khách)</i></p>
+    <p class="center"><b>PHIẾU NHẬN ĐẶT HÀNG</b> · số 0412 · <i>liên 1 (lưu xưởng)</i></p>
     <div class="receipt-line"><span>Ngày:</span><span class="v carbon">${wd("1996-12-02", "Thứ Hai")} ${dt("1996-12-02", "2/12/1996")}</span></div>
     <div class="receipt-line"><span>Khách hàng:</span><span class="v carbon">anh Vũ (Hoài Giang)</span></div>
     <div class="receipt-line"><span>Liên lạc:</span><span class="v carbon">nhắn tin 107 – 552 031</span></div>
@@ -22,6 +22,7 @@ const phieuDuc = {
     <div class="receipt-line"><span>Hẹn giao:</span><span class="v carbon">${wd("1996-12-20", "Thứ Sáu")} ${dt("1996-12-20", "20/12")}</span></div>
     <p class="ink" style="margin-top:12px;transform:rotate(-2deg)">Đã giao hàng ${dt("1996-12-20", "20/12")}, nhận đủ tiền. – Thành</p>
     ${stamp("Đã thanh toán", "right:30px;top:120px", "rect")}
+    <p class="small" style="font-size:15px;color:#555;margin-top:14px">Công an thị xã thu tại xưởng Ba Thành ngày ${dt("1997-03-19", "19-3-1997")}, khi đi hỏi các xưởng đúc Phú Kiều có ai từng đúc ấn núm lân.</p>
   </div>`,
 };
 
@@ -94,8 +95,9 @@ const soTayVu = {
   html: () => `
   <div class="doc doc--grid">
     <p>2/12 – P.K. – cọc 500 – dặn: tai làm lành</p>
+    <p>18/12 – nhắn 107-889 412. Hẹn 21/12.</p>
     <p>20/12 – lấy hàng. Đủ 1tr8.</p>
-    <p>21/12 – nhắn 107-889 412 → P.204, 9h tối. Mang hộp.</p>
+    <p>21/12 – P.204, 9h tối. Mang hộp.</p>
     <p>28/12 – TL: XONG!!!</p>
     <p>&nbsp;</p>
     <p>5/3 – BT mượn??!! Ông già gật rồi.</p>
@@ -121,7 +123,7 @@ const bao19 = {
           <p>"Tôi tưởng vớ được vàng, mừng run", ông Bảy cười. Ông mang tới tiệm vàng Kim Thành nhờ cân bằng cân tiểu ly: <b>gần tròn 5 lượng</b>.
             Nhưng khi chủ tiệm thử bằng axit thì lớp vàng bên ngoài bong ra, lộ màu đồng: vật này không phải vàng.</p>
           <p>Ông Bảy đã giao vật lạ cho Công an phường 2 ngay trong buổi sáng. "Của người ta đánh rơi thì trả người ta", ông nói.</p>
-          <p>Được biết bãi bồi dưới chân cầu Đá nằm ngay cuối hẻm 12, sau lưng Bảo tàng thị xã.</p>
+          <p>Được biết bãi bồi dưới chân cầu Đá nằm ngay cuối hẻm 12, cạnh Bảo tàng thị xã: từ cửa sau bảo tàng đi bộ ra chỉ vài phút.</p>
         </div>
       </div>
       <div>

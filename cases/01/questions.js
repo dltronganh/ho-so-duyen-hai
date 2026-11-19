@@ -27,7 +27,7 @@ export const QUESTIONS = [
       { id: "pins", type: "pins", count: 3, label: "Ghim 3 tài liệu làm bằng chứng" },
     ],
     unlockNote: `Anh Vũ?! Con trai chủ ấn lại lén lấy ấn của chính nhà mình? Mình chưa hiểu anh ta được gì.
-      Chị Hoa vừa chạy tới toà soạn với lá thư Định gửi từ Huế. Mình cũng xin được bản chép sổ kê khai đồ thờ nhà họ Tôn Thất,
+      Chị Hoa vừa chạy tới toà soạn với lá thư Định gửi từ Huế. Mình cũng xin được bản sao sổ kê khai đồ thờ nhà họ Tôn Thất,
       trang sách giới thiệu kim ấn, và công văn bảo tàng gửi gia đình cụ Khải hồi đầu tháng.`,
   },
   {
@@ -40,7 +40,7 @@ export const QUESTIONS = [
       { id: "pins", type: "pins", count: 2, label: "Ghim 2 tài liệu chứng minh chiếc ấn trong tủ kính là thật hay giả" },
     ],
     unlockNote: `Ấn giả! Vậy ấn thật đi đâu, và từ bao giờ?
-      Sáng nay công an khám phòng anh Vũ. Anh Phát cho mình xem ba thứ thu được: một phiếu đặt hàng, một mảnh giấy đòi nợ và một trang sổ tay.
+      Sáng nay công an khám phòng anh Vũ, thu được một mảnh giấy đòi nợ và một trang sổ tay; một tổ khác đi dò các xưởng đúc ở làng Phú Kiều, mang về một tờ phiếu đặt hàng. Anh Phát cho mình xem cả ba.
       Thêm bản sao sổ khách sạn Sông Hoài và lời khai ông Tâm. Còn nữa: báo Hoài Giang hôm nay có tin một ngư dân vớt được "vật lạ".`,
   },
   {
@@ -59,7 +59,7 @@ export const QUESTIONS = [
       { id: "where", type: "choice", label: "Chiếc ấn bị lấy đêm đó giờ ở đâu", options: [
         "Trong hộp gỗ trên bàn thờ nhà cụ Khải",
         "Trong tay ông Tâm ở Sài Gòn",
-        "Dưới sông Hoài, đã được một ngư dân vớt lên",
+        "Bị ném xuống sông Hoài, đã được một ngư dân vớt lên",
         "Trong túi Định mang ra Huế",
       ] },
       { id: "pins", type: "pins", count: 2, label: "Ghim 2 tài liệu làm bằng chứng" },

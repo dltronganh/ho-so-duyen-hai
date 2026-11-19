@@ -20,6 +20,7 @@ export const PEOPLE = {
 export const EVENTS = {
   ribbon: "19:30",
   vu_cafe: "20:30",
+  vu_leaves_cafe: "20:38", // "not ten minutes" after arriving, two or three minutes before the outage
   dinh_leaves: "20:20",
   seal_seen: "20:39",
   outage: "20:41",
@@ -46,6 +47,12 @@ export const SEAL = {
 /** Minutes by motorbike taxi from the town centre to the station, as printed on the town map. */
 export const STATION_KM = 12;
 export const STATION_MINUTES = [25, 30];
+/** By car the same trip takes about this long (also on the map). */
+export const STATION_MINUTES_CAR = 20;
+/** Walk from the café to the museum back door, in minutes. */
+export const CAFE_TO_BACKDOOR_MINUTES = 1;
 
-/** The town radio station started its tape at this clock time (counter 00:00). */
-export const TAPE_START = "20:01";
+/** The town radio station started its second tape at this clock time (counter 00:00). */
+export const TAPE_START = "20:31";
+/** One side of the C90 cassette the station used, in minutes: every quoted counter must fit on it. */
+export const TAPE_SIDE_MINUTES = 45;

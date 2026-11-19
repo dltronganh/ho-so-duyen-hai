@@ -6,7 +6,7 @@ import { sealPhoto, ledgerSketch } from "../art.js";
 import { officeHead } from "../../../js/docparts.js";
 
 const keKhai = {
-  id: "ke_khai", stage: 2, kind: "Sổ sách", label: "Sổ kê khai đồ thờ họ Tôn Thất (bản chép)",
+  id: "ke_khai", stage: 2, kind: "Sổ sách", label: "Sổ kê khai đồ thờ họ Tôn Thất (bản sao)",
   html: () => `
   <div class="doc doc--old">
     <div class="old-title">Sổ kê khai đồ thờ tự</div>
@@ -22,7 +22,7 @@ const keKhai = {
       <tr><td>4</td><td>Sắc phong</td><td>Hai đạo, giấy dó, đựng ống tre sơn son.</td></tr>
     </table>
     <p style="margin-top:12px;font-size:20px">Đồ thờ để trong hộp gỗ trên bàn thờ chính. Con cháu không được cầm cố, mua bán.</p>
-    ${stamp("Bảo tàng thị xã<br>Hoài Giang<br>Đã nhận bản chép<br>10-3-1997", "right:24px;top:18px")}
+    ${stamp("Bảo tàng thị xã<br>Hoài Giang<br>Đã nhận bản sao<br>10-3-1997", "right:24px;top:18px")}
   </div>`,
 };
 
@@ -38,7 +38,7 @@ const catalogue = {
       Sau khi cụ mất, ấn được con cháu thờ phụng hơn một trăm năm.</p>
     <p>Núm ấn đúc hình con lân ngồi, bờm xoắn, đường nét tinh xảo. Điều đáng quý là hiện vật <b>còn nguyên vẹn</b> sau hơn một thế kỷ,
       qua bao lần loạn lạc của vùng đất này.</p>
-    <p class="small muted">Biên soạn: Phan Thị Nguyệt. Trang rời in gấp tối 14-3-1997 tại Xí nghiệp in Hoài Giang, kẹp vào sách giới thiệu triển lãm (sách in từ trước, do ông Hồ Minh Tâm tài trợ).</p>
+    <p class="small muted">Biên soạn: Phan Thị Nguyệt. Trang rời in gấp tối 14-3-1997 tại Xí nghiệp in Hoài Giang, kẹp vào sách giới thiệu triển lãm (sách in từ tháng Giêng, trước khi gia đình cụ Khải nhận lời cho mượn kim ấn, do ông Hồ Minh Tâm tài trợ).</p>
   </div>`,
 };
 
@@ -50,10 +50,10 @@ const thuDinh = {
     <div class="gap"></div>
     <p>Chị Hoa thương,</p>
     <p>Em xin lỗi vì đi gấp không kịp nói với chị. Em không sao hết, chị đừng lo.</p>
-    <p>Chiều thứ Sáu, lúc nhận hiện vật cho triển lãm, em thấy có chuyện không ổn với một hiện vật quan trọng. Em báo ngay chị Nguyệt,
+    <p>Chiều thứ Sáu, nhận hiện vật cho triển lãm xong, em cân rồi so lại với bản sao sổ kê khai thì thấy có chuyện không ổn với một hiện vật quan trọng. Em báo ngay chị Nguyệt,
       nhưng chị Nguyệt gạt đi, dặn em đừng làm rùm beng trước đêm khai mạc, chuyện gì thì để thứ Hai đoàn giám định coi.</p>
-    <p>Em sợ tới thứ Hai thì muộn. Nên tối thứ Bảy, lúc chị Nguyệt đang phát biểu, khoảng tám giờ hai mươi, em lẳng lặng ra cổng trước (anh Sáu đang lo dắt xe cho khách nên không để ý),
-      ôm theo tập ảnh tư liệu của bảo tàng, bắt xe ôm ra ga cho kịp chuyến tàu tối đi Huế, để nhờ thầy Lâm coi trước.</p>
+    <p>Chị Nguyệt còn tính, nếu thấy không ổn thì xin dời buổi giám định qua sau triển lãm cho êm. Em sợ dời rồi thì chuyện chìm luôn. Nên tối thứ Bảy, lúc chị Nguyệt đang phát biểu, khoảng tám giờ hai mươi, em lẳng lặng ra cổng trước (anh Sáu đang lo dắt xe cho khách nên không để ý),
+      ôm theo ảnh chụp hiện vật chiều thứ Sáu và bản sao sổ kê khai, bắt xe ôm ra ga cho kịp chuyến tàu tối đi Huế, để nhờ thầy Lâm so với ảnh tư liệu năm 1962 của trường và giữ đúng lịch sáng thứ Hai.</p>
     <p>Sáng nay em tới nhà thầy thì cô nói bảo tàng vừa đánh điện báo hoãn buổi giám định sáng thứ Hai, nên thầy đi luôn Quảng Trị với đoàn khảo cổ, thứ Năm mới về. Em ở nhà trọ gần trường chờ thầy. Thứ Năm em về cùng thầy.</p>
     <p>Chuyện này chưa chắc chắn nên chị đừng nói với ai nghen. Cụ Khải già yếu, mắt kém, em không muốn cụ lo.</p>
     <div class="gap"></div>
@@ -75,7 +75,7 @@ const congVan = {
       khai mạc lúc 19 giờ 30 ${wd("1997-03-15", "thứ Bảy")} ngày ${dt("1997-03-15", "15-3-1997")}.</p>
     <p>Đề nghị gia đình:</p>
     <p>1. Mang hiện vật tới bảo tàng bàn giao lúc 15 giờ ${wd("1997-03-14", "thứ Sáu")} ngày ${dt("1997-03-14", "14-3-1997")}.</p>
-    <p>2. Cung cấp bản chép sổ kê khai đồ thờ và ảnh tư liệu cũ (nếu có) trước ngày ${dt("1997-03-10", "10-3-1997")} để làm sách giới thiệu.</p>
+    <p>2. Cung cấp bản sao sổ kê khai đồ thờ và ảnh tư liệu cũ (nếu có) chậm nhất ngày ${dt("1997-03-10", "10-3-1997")} để làm trang giới thiệu hiện vật và đối chiếu khi giám định.</p>
     <p>3. Cử đại diện dự buổi <b>giám định khoa học</b> do đoàn chuyên gia Trường Đại học Khoa học Huế (PGS. Trần Đình Lâm, trưởng đoàn) thực hiện
       lúc <b>8 giờ ${wd("1997-03-17", "thứ Hai")} ngày ${dt("1997-03-17", "17-3-1997")}</b> tại bảo tàng. Nội dung giám định: cân, đo kích thước,
       thử tuổi vàng bằng axit, đối chiếu với sổ sách và ảnh tư liệu của gia đình.</p>
