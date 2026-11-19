@@ -49,6 +49,8 @@ export function readNumeral(str) {
 export const SEASONS = ["Akhet", "Peret", "Shemu"];
 /** Rest days of the crew in every month. */
 export const REST_DAYS = [9, 10, 19, 20, 29, 30];
+/** The wadi of the Valley where Nebettawy's tomb lies (the patrol log names wadis). */
+export const TOMB_WADI = "nam";
 
 /** Key dates (year 16 unless noted): season index, month (1–4), day. */
 export const DAYS = {
@@ -80,4 +82,12 @@ export const WALL_DISTANCE = [42, 0];
 export const KITE_PER_DEBEN = 10;
 export const BRACELET_KITE = 25;
 export const BRACELETS_TAKEN = 4;
+export const BRACELETS_LISTED = 6;
 export const MIRROR_DEBEN = 3;
+
+/** Thebes market prices (deben): gold to silver, silver to copper, an ox and a sack of grain in copper. */
+export const PRICES = { goldInSilver: 2, silverInCopper: 100, oxCopper: [100, 120], sackCopper: 2 };
+/** Monthly grain wages in sacks: [emmer wheat, barley]. */
+export const WAGES = { worker: [4, 1.5], chief: [7, 2] };
+/** The ox price paid by the foreman, in deben of silver. */
+export const OX_SILVER = 1;

@@ -4,7 +4,7 @@
 export const QUESTIONS = [
   {
     id: "q1", stage: 0, title: "Đêm nào",
-    ask: "Thị trưởng Tây Thebes nói lăng không hề bị mở. Nhưng nếu lăng phu nhân Nebettawy đã bị đột nhập, thì là vào đêm ngày mấy của tháng II mùa Peret?",
+    ask: "Thị trưởng Tây Thebes nói lăng không hề bị mở, nhưng biên bản mở lăng cho thấy điều ngược lại. Lăng phu nhân Nebettawy đã bị đột nhập vào đêm ngày mấy của tháng II mùa Peret?",
     parts: [
       { id: "day", type: "number", label: "Đêm ngày (số ngày trong tháng)" },
       { id: "pins", type: "pins", count: 3, label: "Ghim 3 tài liệu làm bằng chứng" },
@@ -57,7 +57,7 @@ export const QUESTIONS = [
         "Cát lấp lối vào nên không vào được",
         "Đoàn kiểm tra nhầm sang lăng khác",
       ] },
-      { id: "mirror", type: "choice", label: "Người đã nhận chiếc gương bạc làm của riêng", options: ["Tjekerbaal", "Pakhar", "Userhat", "Sennefer", "Nebamun"] },
+      { id: "mirror", type: "choice", label: "Người cuối cùng nhận chiếc gương bạc", options: ["Tjekerbaal", "Pakhar", "Userhat", "Sennefer", "Nebamun"] },
       { id: "pins", type: "pins", count: 3, label: "Ghim 3 tài liệu làm bằng chứng" },
     ],
     unlockNote: `Pakhar đã khai hết. Viết cho ta bản tổng kết để đọc trước toà: các việc theo đúng thứ tự, và kẻ trộm đã có bao nhiêu ngày trước khi lăng được mở.`,

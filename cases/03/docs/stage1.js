@@ -13,11 +13,11 @@ const nhatKy = {
       [11, `Đầu tuần. Sáng nay, trước khi đục, hành lang C tính từ cửa lăng dài ${n(CORRIDOR_START, 22)} cubit. Bên phải đục hành lang C thêm ${p(11)}. Bên trái đục phòng D.`],
       [12, `Bên phải: hành lang C thêm ${p(12)}. Bên trái: phòng D.`],
       [13, `Bên phải: hành lang C thêm ${p(13)}. Đá cứng, Khonsu đổi đục hai lần.`],
-      [14, `Bên phải: hành lang C thêm ${p(14)}. Phát lúa tháng.`],
+      [14, `Bên phải: hành lang C thêm ${p(14)}. Bên trái: phòng D.`],
       [15, `Bên phải: hành lang C thêm ${p(15)}. Bên trái: phòng D xong phần thô.`],
-      [16, `Bên phải: hành lang C thêm ${p(16)}. Vách cuối hành lang C gõ nghe tiếng rỗng. Đốc công cho dừng hành lang C, chờ thư lại đo lại theo bản vẽ.`],
-      [17, "Bên phải: trát vữa, vẽ phác phòng B. Không đo được hành lang C: dây đo bị chuột cắn đứt. Kenna vắng, ủ bia."],
-      [18, "Bên phải: chở đá vụn ra cửa lăng. Đốc công khoá then cửa lăng trước khi về."],
+      [16, `Bên phải: hành lang C thêm ${p(16)}. Vách cuối hành lang C gõ nghe tiếng rỗng. Đốc công cho dừng hành lang C, chờ đo lại và hỏi bản vẽ ở nhà thư lại của nghĩa địa.`],
+      [17, "Bên phải: quét thạch cao, vẽ phác phòng B. Không đo được hành lang C: dây đo bị chuột cắn đứt. Kenna vắng, ủ bia."],
+      [18, "Bên phải: chở đá vụn ra cửa lăng. Đốc công cài then cửa lăng trước khi về."],
       [21, "Theo lệnh đốc công, trát vữa kín vách cuối hành lang C. Đốc công nói đá ở đó nứt, sợ sập. Khonsu vắng: bị bọ cạp cắn."],
       [22, "Bên phải: phòng B. Bên trái: hành lang B. Khonsu vắng: bọ cạp cắn."],
       [23, "Bên phải: phòng B. Khonsu vắng: bọ cạp cắn."],
@@ -48,13 +48,13 @@ function plan() {
   s += `<path d="M285 180 L285 300 M300 180 L300 300"/><rect x="250" y="300" width="90" height="70"/>`;
   s += `</g>`;
   s += t(48, 110, "cửa lăng 9") + t(150, 122, "hành lang A") + t(250, 95, "phòng B") + t(380, 124, "hành lang C") + t(310, 240, "hành lang B", `transform="rotate(90 310 240)"`) + t(262, 392, "phòng D");
-  // Nebettawy's tomb (older) further right, slightly lower: burial chamber with north wall facing corridor C's end.
+  // Nebettawy's tomb (older) further right: the west wall of its burial chamber faces corridor C's end.
   s += `<g fill="none" stroke="#2a1c0e" stroke-width="3"><rect x="580" y="100" width="160" height="110"/><path d="M660 210 L660 430 M680 210 L680 430"/><rect x="640" y="430" width="60" height="40"/></g>`;
   s += t(592, 150, "phòng mộ") + t(592, 170, "phu nhân Nebettawy") + t(690, 370, "đường xuống") + t(612, 492, "cửa lăng phu nhân");
   s += t(566, 235, "vách tây", `font-style="italic" font-size="14" transform="rotate(-90 566 235)"`);
   // measurement along corridor C
   s += `<path d="M80 76 L580 76" stroke="#2a1c0e" stroke-width="1.5"/><path d="M80 68 L80 84 M580 68 L580 84" stroke="#2a1c0e" stroke-width="1.5"/>`;
-  s += t(90, 30, "từ cửa lăng 9, theo trục hành lang C, tới vách phòng mộ phu nhân:");
+  s += t(90, 30, "từ ngưỡng cửa lăng 9, theo trục hành lang C, tới vách phòng mộ phu nhân:");
   s += gl(230, 60, numeral(WALL_DISTANCE[0]), 40) + t(420, 56, "cubit", `font-size="20"`);
   s += t(40, 505, "Thư lại của nghĩa địa đo năm 15, khi bắt đầu đục lăng 9: trục hành lang C là trục thiết kế. Hình không đúng tỉ lệ, chỉ số đo là đúng.", `font-size="13" font-style="italic"`);
   s += `</svg>`;

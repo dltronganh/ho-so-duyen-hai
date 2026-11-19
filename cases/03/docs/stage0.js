@@ -2,7 +2,7 @@
 // inspection, the opening of the tomb, the jar docket, the Medjay patrol log, the festival calendar, the crew roster.
 // Facts must agree with the case facts.js. All names are fictional.
 import { stamp } from "../../../js/kit.js";
-import { SIGNS, NUM } from "../facts.js";
+import { SIGNS, NUM, PRICES, WAGES } from "../facts.js";
 import { ed, eday, g, n, tr } from "./parts.js";
 
 const SIGN_NAMES = {
@@ -10,6 +10,9 @@ const SIGN_NAMES = {
   M: "con cú", N: "mặt nước", R: "cái miệng", H: "mái lều sậy", "Ḥ": "sợi lanh xoắn", KH: "cái nhau thai", S: "nếp vải gấp", SH: "cái ao",
   Q: "sườn đồi", K: "cái giỏ", G: "giá đỡ vò", T: "ổ bánh mì", TJ: "dây buộc gia súc", D: "bàn tay", DJ: "rắn hổ mang",
 };
+
+/** A count of grain sacks in words: 1.5 → "1 bao rưỡi". */
+const sacks = (v) => (Number.isInteger(v) ? `${v} bao` : `${Math.floor(v)} bao rưỡi`);
 
 const lenh = {
   id: "lenh", stage: 0, kind: "Giấy cói", label: "Lệnh của tể tướng Ptahmose",
@@ -44,8 +47,8 @@ const bangTra = {
       mỗi tháng 30 ngày; cuối năm thêm 5 ngày lễ. Năm tính theo đời Pharaoh: "năm 16" là năm thứ mười sáu của Pharaoh đang trị vì. Ví dụ: năm 15, tháng IV mùa Akhet, ngày ${n(23)}.</p>
     <p><b>4. Tuần mười ngày.</b> Đội thợ làng Set-Maat làm tám ngày, <b>nghỉ ngày 9, 10, 19, 20, 29, 30</b> mỗi tháng. Ngày nghỉ, cửa các lăng đang đục được cài then, thợ ở làng.</p>
     <p><b>5. Đo lường.</b> 1 cubit hoàng gia = 7 bàn tay = 28 ngón (một cubit dài chừng từ khuỷu tay tới đầu ngón giữa). Cân: <b>1 deben = 10 kite</b>.</p>
-    <p><b>6. Giá ở chợ Thebes.</b> 1 deben vàng = 2 deben bạc; 1 deben bạc = 100 deben đồng. Một con bò: 100 tới 120 deben đồng. Một bao lúa: chừng 2 deben đồng.</p>
-    <p><b>7. Lương tháng (trả bằng lúa).</b> Thợ: 4 bao lúa mì, 1 bao rưỡi lúa mạch. Đốc công và thư lại: 7 bao lúa mì, 2 bao lúa mạch.</p>
+    <p><b>6. Giá ở chợ Thebes.</b> 1 deben vàng = ${PRICES.goldInSilver} deben bạc; 1 deben bạc = ${PRICES.silverInCopper} deben đồng. Một con bò: ${PRICES.oxCopper[0]} tới ${PRICES.oxCopper[1]} deben đồng. Một bao lúa: chừng ${PRICES.sackCopper} deben đồng.</p>
+    <p><b>7. Lương tháng (trả bằng lúa).</b> Thợ: ${sacks(WAGES.worker[0])} lúa mì, ${sacks(WAGES.worker[1])} lúa mạch. Đốc công và thư lại: ${sacks(WAGES.chief[0])} lúa mì, ${sacks(WAGES.chief[1])} lúa mạch.</p>
     ${tr("bảng học trò viết trên một tấm giấy cói đã dùng lại; ký hiệu vẽ bằng mực đen.")}
   </div>`,
 };
@@ -76,8 +79,8 @@ const baoCao = {
     <p>Đoàn đi khắp Thung lũng và xem xét các lăng sau:</p>
     <p>– Lăng của vua tổ tiên, ở khe phía bắc: dấu niêm phong cửa nguyên vẹn. <b>Nguyên vẹn.</b><br>
        – Lăng của hoàng hậu Tiaa: dấu niêm phong cửa nguyên vẹn. <b>Nguyên vẹn.</b><br>
-       – Lăng số 9 của hoàng tử, đang đục: đội thợ đang làm việc bên trong. Không có gì lạ.<br>
-       – Lăng của phu nhân <b>Nebettawy</b>: dấu niêm phong cửa nguyên vẹn, dấu đất sét còn in ấn của nghĩa địa. <b>Nguyên vẹn.</b></p>
+       – Lăng số 9 của hoàng tử, đang đục, ở khe phía nam: đội thợ đang làm việc bên trong. Không có gì lạ.<br>
+       – Lăng của phu nhân <b>Nebettawy</b>, ở khe phía nam: dấu niêm phong cửa nguyên vẹn, dấu đất sét còn in ấn của nghĩa địa. <b>Nguyên vẹn.</b></p>
     <p>Kết luận: lời tố cáo của thị trưởng Đông Thebes là sai. Không lăng nào trong Thung lũng bị mở.</p>
     <p class="right">Sennefer · Bakenmut · Userhat · Nakhtmin · Hori</p>
     ${tr("giấy cói, chữ thầy tu; năm tên ký bằng mực đỏ.")}
@@ -92,7 +95,7 @@ const bienBanMo = {
     <p class="center"><i>${ed("opening")}</i></p>
     <p>Có mặt: tể tướng Ptahmose; thư lại của tể tướng; thị trưởng Nebamun; thị trưởng Sennefer; đội trưởng Bakenmut.</p>
     <p>1. Dấu niêm phong cửa còn nguyên. Phá niêm, mở cửa, đi xuống theo các bậc.</p>
-    <p>2. Phòng mộ: nắp quan tài ngoài bị đẩy lệch. Hộp trang sức gỗ mun mở nắp, <b>trống</b>. Hai vòng tay vàng rơi dưới chân quan tài. Không thấy cái gương.</p>
+    <p>2. Phòng mộ: nắp quan tài ngoài bị đẩy lệch. Hộp trang sức gỗ mun mở nắp, <b>trống</b>. Hai vòng tay vàng rơi dưới chân quan tài; chuỗi hạt đá xanh và khuyên tai đá đỏ vương trên sàn. Không thấy cái gương.</p>
     <p>3. Trên sàn: một ngọn đèn đất nung, bấc đã cháy hết; một vò bia nhỏ còn cặn, cổ vò có nhãn mực (chép ở tờ riêng); một cái đục đồng.</p>
     <p>4. Ở chân <b>vách tây</b> phòng mộ có một lỗ thủng, cao chừng một cubit, rộng vừa một người bò chui qua. Phía sau lỗ là đá vụn, rồi một <b>lớp vữa mới</b> bịt kín. Chưa phá lớp vữa.</p>
     <p>5. Các phòng khác, tranh tường, tượng gỗ, bình hoa còn nguyên.</p>
@@ -121,7 +124,7 @@ const tuanTra = {
       12: "Đêm qua tuần cả Thung lũng. Các dấu niêm nguyên.", 13: "Đêm qua tuần cả Thung lũng. Các dấu niêm nguyên.", 14: "Đêm qua tuần khe phía bắc và phía nam. Không có gì lạ.",
       15: "Đêm qua tuần cả Thung lũng. Các dấu niêm nguyên.", 16: "Đêm qua tuần cả Thung lũng. Gió cát, về sớm.", 17: "Đêm qua tuần cả Thung lũng. Các dấu niêm nguyên.",
       18: "Đêm qua tuần cả Thung lũng. Các dấu niêm nguyên.", 19: "Đêm qua tuần cả Thung lũng. Các dấu niêm nguyên. Cửa lăng số 9 cài then gỗ bên ngoài.",
-      20: "Đêm qua không tuần.", 21: "Đêm qua tuần cả Thung lũng. Trưa hôm qua có tuần thêm ban ngày: gặp một người gánh nước dắt lừa chở bình đi xuống làng, nói mang nước lên cho lính gác.",
+      20: "Đêm qua không tuần.", 21: "Đêm qua tuần cả Thung lũng. Trưa hôm qua có tuần thêm ban ngày: gặp một người gánh nước dắt lừa chở bình đi xuống làng, nói vừa mang nước lên cho lính gác.",
       22: "Đêm qua tuần cả Thung lũng. Các dấu niêm nguyên.", 23: "Đêm qua tuần cả Thung lũng. Các dấu niêm nguyên.",
       24: "Đêm qua tuần cả Thung lũng. Các dấu niêm nguyên.", 25: "Đêm qua tuần khe phía nam. Không có gì lạ.", 26: "Đêm qua tuần cả Thung lũng. Các dấu niêm nguyên.",
       27: "Đêm qua tuần cả Thung lũng. Các dấu niêm nguyên.", 28: "Đêm qua tuần cả Thung lũng. Gió lạnh.", 29: "Đêm qua tuần cả Thung lũng. Các dấu niêm nguyên.",
@@ -147,7 +150,7 @@ const lichLe = {
     <p>Ngày ${n(1)}: dâng bánh đầu tháng. Mọi đền thờ dâng bánh trắng.</p>
     <p>Ngày ${n(6)}: lễ của nữ thần Mut. Rước tượng quanh hồ thiêng.</p>
     <p>Ngày ${n(12)}: ngày xấu. Không lên đường đi xa, không ăn cá.</p>
-    <p>Ngày ${n(19)}: <b>lễ mừng ngày Pharaoh lên ngôi: rước thuyền thần Amun qua sông.</b> Thuyền thần rời Karnak lúc mặt trời lặn, sang bờ tây thăm các đền tưởng niệm,
+    <p>Ngày ${n(19)}: <b>lễ Amun thăm bờ tây: rước thuyền thần Amun qua sông.</b> Thuyền thần rời Karnak lúc mặt trời lặn, sang bờ tây thăm đền tưởng niệm của các vua tổ tiên,
       trở về lúc bình minh hôm sau. <b>Mọi lính Medjay của bờ tây theo hầu thuyền thần suốt đêm.</b></p>
     <p>Ngày ${n(25)}: dâng nước thánh. Ngày ${n(28)}: ngày tốt cho cưới hỏi.</p>
     ${tr("giấy cói của đền, chữ thầy tu; các ngày viết bằng chữ số.")}
@@ -171,7 +174,7 @@ const CREW = [
 ];
 
 const danhSach = {
-  id: "danh_sach", stage: 0, kind: "Mảnh gốm", label: "Danh sách đội thợ làng Set-Maat",
+  id: "danh_sach", stage: 0, kind: "Mảnh đá vôi", label: "Danh sách đội thợ làng Set-Maat",
   html: () => `
   <div class="doc doc--ostracon" style="width:640px">
     <p class="center"><b>Đội thợ của Thung lũng, năm 16</b></p>
@@ -179,7 +182,7 @@ const danhSach = {
       <tr><td><b>Tên</b></td><td><b>Bên</b></td><td><b>Việc</b></td><td><b>Ghi chú</b></td></tr>
       ${CREW.map((r) => `<tr><td style="text-align:left">${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td style="text-align:left;font-size:13px">${r[3]}</td></tr>`).join("")}
     </table>
-    <p class="small" style="margin-top:10px">Lăng số 9 của hoàng tử: bên phải đục hành lang A và C; bên trái đục hành lang B và phòng D.</p>
+    <p class="small" style="margin-top:10px">Lăng số 9 của hoàng tử: bên phải đục hành lang A, phòng B và hành lang C; bên trái đục hành lang B và phòng D.</p>
     <p class="tr-note">Bản dịch · mảnh đá vôi, mực đen. Tên người được phiên âm có nguyên âm cho dễ đọc.</p>
   </div>`,
 };
