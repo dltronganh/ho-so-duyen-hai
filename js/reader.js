@@ -1,7 +1,7 @@
 // Full-screen document reader: zoom, highlighter, "pin as evidence", and picking a lying line.
 // Opened with openReader(docId). Talks to the rest of the game through js/game.js (state + events).
 import { state, save } from "./store.js";
-import { doc, visibleDocs, currentQuestion, pinsPart, currentPins, pinSlots, togglePin, responseOf, picking, emit, on } from "./game.js";
+import { doc, visibleDocs, currentQuestion, pinsPart, currentPins, pinSlots, togglePin, responseOf, picking, ideasHidden, emit, on } from "./game.js";
 import { develop } from "./halftone.js";
 import { play } from "./sound.js";
 import { toast } from "./ui.js";
@@ -187,7 +187,7 @@ function refreshButtons() {
   } else if (q && pinned) {
     el.banner.hidden = false;
     el.banner.className = "reader-banner pin";
-    el.banner.textContent = t("pinnedBanner", q.id.slice(1), pinSlots().indexOf(current) + 1);
+    el.banner.textContent = t(ideasHidden() ? "pinnedBannerSlot" : "pinnedBanner", q.id.slice(1), pinSlots().indexOf(current) + 1);
   } else el.banner.hidden = true;
   // Show the line already chosen for the open question, if it is in this document.
   if (q) {

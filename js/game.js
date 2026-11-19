@@ -72,8 +72,14 @@ export function pinSlots() {
   return r.pins;
 }
 
-/** The label of the idea an evidence slot must prove (from the case data), or "" when the case has none. */
-export const ideaOf = (qid, k) => SECRETS[qid]?.ideas?.[k] || "";
+/** True when the case hides the ideas on its evidence slots (META.hideIdeas): slots only say "Evidence 1/2/3". */
+export const ideasHidden = () => Boolean(META.hideIdeas);
+
+/** The label of the idea an evidence slot must prove (from the case data), or "" when the case has none or hides them. */
+export const ideaOf = (qid, k) => (ideasHidden() ? "" : SECRETS[qid]?.ideas?.[k] || "");
+
+/** Short name of evidence slot k: "Ý 2" / "Point 2", or "Bằng chứng 2" / "Evidence 2" without an idea label. */
+export const slotName = (qid, k) => (ideaOf(qid, k) ? t("ideaN", k + 1) : t("ideaFallback", k + 1));
 
 /**
  * Pins or unpins a document as evidence for the open question. Returns a short message for the player.
@@ -91,12 +97,12 @@ export function togglePin(docId, slot = null) {
     else {
       const free = pins.indexOf(null);
       if (free < 0) return t("full", part.count);
-      pins[free] = docId; msg = t("pinnedTo", free + 1);
+      pins[free] = docId; msg = t(ideasHidden() ? "pinnedToSlot" : "pinnedTo", free + 1);
     }
   } else if (i === slot) { pins[i] = null; msg = t("unpinned"); }
   else {
     if (i >= 0) pins[i] = null;
-    pins[slot] = docId; msg = t("pinnedTo", slot + 1);
+    pins[slot] = docId; msg = t(ideasHidden() ? "pinnedToSlot" : "pinnedTo", slot + 1);
   }
   save(); emit("pins");
   return msg;

@@ -11,7 +11,7 @@ export const DOCS = [...stage0, ...stage1, ...stage2, ...stage3, ...stage4, ...e
 export { QUESTIONS, ENDING_DOCS } from "./questions.js";
 export { SECRET, SECRET_KEY } from "./answers.js";
 
-/** Cover text and options. hard: never tell how many parts of a wrong answer are right. */
+/** Cover text and options. hard: never tell how many parts of a wrong answer are right. hideIdeas: evidence slots show no idea label and are checked in any order. */
 export const META = {
   series: "Hồ sơ Duyên Hải",
   number: "Hồ sơ số 04",
@@ -23,6 +23,7 @@ export const META = {
   time: "3–5 giờ",
   level: "Siêu khó",
   hard: true,
+  hideIdeas: true,
   boss: { role: "trưởng phòng giám định", sign: "Thịnh" },
   firstDoc: "giao_viec",
   ending: {

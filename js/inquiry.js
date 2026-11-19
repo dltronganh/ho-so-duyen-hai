@@ -2,9 +2,9 @@
 // Checking is done by js/answer.js; this file only builds the form and reacts to the player.
 // onSolved(question) is called by the app when the open question is answered correctly (or the solution is used).
 import { state, save } from "./store.js";
-import { QUESTIONS, SECRETS, META, doc, visibleDocs, currentQuestion, responseOf, picking, togglePin, pinSlots, pinsPart, ideaOf, on, emit } from "./game.js";
-import { checkQuestion, isFilled } from "./answer.js";
-import { checkSlot, checkedVerdict, takeCheckTip } from "./checks.js";
+import { QUESTIONS, SECRETS, META, doc, visibleDocs, currentQuestion, responseOf, picking, togglePin, pinSlots, pinsPart, ideaOf, ideasHidden, slotName, on, emit } from "./game.js";
+import { checkQuestion, isFilled, fitsOtherSlot } from "./answer.js";
+import { checkSlot, checkedVerdict, checkAnySlot, anyVerdict, takeCheckTip } from "./checks.js";
 import { play } from "./sound.js";
 import { toast, dialog, esc } from "./ui.js";
 import { t } from "./i18n.js";
@@ -96,14 +96,16 @@ function partHtml(q, p, value, r) {
       <div class="q-actions"><button class="btn btn--paper ${active ? "on" : ""}" data-act="pickline" data-part="${p.id}">${active ? t("waitingLine") : t("pickLine")}</button></div></div>`;
   }
   if (p.type === "pins") {
-    const pins = pinSlots();
+    const pins = pinSlots(), hidden = ideasHidden(), groups = SECRETS[q.id].answers[p.id];
     const slots = pins.map((id, k) => {
       const idea = ideaOf(q.id, k);
       // A checked document shows its verdict while it stays in the slot; an unchecked one offers the paid check.
-      const verdict = checkedVerdict(state, q.id, k, id);
+      const verdict = hidden ? anyVerdict(state, q.id, groups, pins, k) : checkedVerdict(state, q.id, k, id);
       const mark = verdict === null ? "" : verdict
         ? `<em class="slot-ok">✓ ${t("slotOk")}</em>` : `<em class="slot-lack">✗ ${t("slotLacking")}</em>`;
-      const top = `<div class="slot-idea"><b>${idea ? t("ideaN", k + 1) : t("ideaFallback", k + 1)}</b>${idea ? `<span>${esc(idea)}</span>` : ""}${mark}</div>`;
+      // With idea labels, a document of another idea is "not enough" here: say that the grading ignores slot order.
+      const other = !hidden && verdict === false && fitsOtherSlot(groups, pins, k) ? `<p class="slot-note">${t("otherSlot")}</p>` : "";
+      const top = `<div class="slot-idea"><b>${slotName(q.id, k)}</b>${idea ? `<span>${esc(idea)}</span>` : ""}${mark}</div>${other}`;
       const check = id && verdict === null
         ? `<div class="slot-check"><button class="btn btn--paper" data-act="checkslot" data-slot="${k}">${t("checkSlot")} <small>(${t("checkCost")})</small></button></div>` : "";
       const body = id
@@ -111,7 +113,7 @@ function partHtml(q, p, value, r) {
         : `<div class="slot-doc"><span class="empty">${t("slotEmpty")}</span><button class="btn btn--paper slot-add" data-act="pickdoc" data-slot="${k}">${t("pinFromList")}</button></div>`;
       return `<div class="slot slot--idea${id ? " filled" : ""}${verdict === false ? " lacking" : verdict ? " proven" : ""}">${top}${body}${check}</div>`;
     }).join("");
-    return `<div class="q-part">${head}<div class="slots">${slots}</div></div>`;
+    return `<div class="q-part">${head}${hidden ? `<p class="small muted slot-order">${t("anyOrder")}</p>` : ""}<div class="slots">${slots}</div></div>`;
   }
   return "";
 }
@@ -156,7 +158,7 @@ function onInput(e) {
 /** The document list for one evidence slot: tapping a document pins it in that slot and closes the list. */
 async function pickFromList(q, slot) {
   const pins = pinSlots();
-  const mark = (id) => { const k = pins.indexOf(id); return k < 0 ? "" : k === slot ? "📌" : `📌 ${t("ideaN", k + 1)}`; };
+  const mark = (id) => { const k = pins.indexOf(id); return k < 0 ? "" : k === slot ? "📌" : `📌 ${slotName(q.id, k)}`; };
   const items = visibleDocs().map((d) => `<button class="folder-item" data-pick="${d.id}" style="grid-template-columns:1fr auto">
       <span class="folder-label">${esc(d.label)}</span><span class="small">${mark(d.id)}</span></button>`).join("");
   const idea = ideaOf(q.id, slot);
@@ -177,11 +179,15 @@ async function pickFromList(q, slot) {
 
 /** Checks one evidence slot (one hint): marks it "enough" or "not enough", never naming the right document. */
 function checkOneSlot(q, k) {
-  const res = checkSlot(state, q.id, SECRETS[q.id].answers[pinsPart().id], pinSlots(), k);
+  const groups = SECRETS[q.id].answers[pinsPart().id], pins = pinSlots(), hidden = ideasHidden();
+  const res = (hidden ? checkAnySlot : checkSlot)(state, q.id, groups, pins, k);
   if (!res) return;
   save();
   play(res.ok ? "pin" : "wrong");
-  if (res.charged) toast(t("checkedToast", k + 1, res.ok));
+  if (res.charged) {
+    const other = !hidden && !res.ok && fitsOtherSlot(groups, pins, k) ? ` ${t("otherSlot")}` : "";
+    toast(hidden ? t("checkedToastAny", k + 1, res.ok) : t("checkedToast", k + 1, res.ok) + other);
+  }
   renderInquiry();
 }
 
@@ -216,7 +222,7 @@ function submit(q) {
   const card = root.querySelector(".q-card[data-q]");
   if (missing.length) {
     const emptySlots = (r.pins || []).map((id, k) => (id ? 0 : k + 1)).filter(Boolean).join(", ");
-    toast(t("missing", missing.map((p) => (p.type === "pins" && emptySlots ? t("missingIdeas", emptySlots) : p.label.toLowerCase())).join("; ")));
+    toast(t("missing", missing.map((p) => (p.type === "pins" && emptySlots ? t(ideasHidden() ? "missingSlots" : "missingIdeas", emptySlots) : p.label.toLowerCase())).join("; ")));
     card?.classList.add("shake"); setTimeout(() => card?.classList.remove("shake"), 450);
     return;
   }

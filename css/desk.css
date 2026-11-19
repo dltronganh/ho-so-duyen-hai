@@ -174,6 +174,8 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .slot-check { display: flex; justify-content: flex-end; }
 .slot-check .btn { padding: 4px 10px; font-size: 12.5px; }
 .slot-check small { font-size: 11.5px; opacity: .75; }
+.slot-note { margin: 4px 0 0; font-size: 12.5px; line-height: 1.4; color: var(--muted); font-style: italic; }
+.slot-order { margin: 2px 0 6px; }
 .slot-doc { display: flex; align-items: center; gap: 8px; min-height: 34px; }
 .slot-pick { border: 0; background: transparent; padding: 4px 0; font: inherit; color: var(--ink); text-align: left; cursor: pointer; text-decoration: underline dotted rgba(0,0,0,.35); text-underline-offset: 3px; }
 .slot-add { margin-left: auto; padding: 6px 10px; font-size: 13px; }

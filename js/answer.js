@@ -85,6 +85,46 @@ export function slotProves(groups, slots, k) {
 }
 
 /**
+ * The best way to give the pinned documents to the ideas when slot order does not matter: returns the set of
+ * documents that each prove a distinct idea. Among all such matchings it prefers, in turn: the most documents
+ * of `keep` (ones already known to be enough), the most documents overall, the document `want` (the one being
+ * checked), then the smallest ids. Nothing depends on which slot holds what, so any order of the same
+ * documents gives the same answer. Groups and slots are few (2–3), so trying every matching is instant.
+ */
+export function bestMatch(groups, slots, keep = [], want = null) {
+  const pins = [...new Set(slots.filter(Boolean))].sort();
+  let best = null, bestScore = null;
+  const used = new Array(groups.length).fill(false), taken = [];
+  const score = (set) => [set.filter((id) => keep.includes(id)).length, set.length, set.includes(want) ? 1 : 0];
+  const better = (a, b, sa, sb) => {
+    for (let i = 0; i < sa.length; i++) if (sa[i] !== sb[i]) return sa[i] > sb[i];
+    return a.join("|") < b.join("|");
+  };
+  const walk = (i) => {
+    if (i === pins.length) {
+      const s = score(taken);
+      if (!best || better(taken, best, s, bestScore)) { best = [...taken]; bestScore = s; }
+      return;
+    }
+    walk(i + 1);  // this document proves nothing new
+    groups.forEach((g, j) => {
+      if (used[j] || !g.includes(pins[i])) return;
+      used[j] = true; taken.push(pins[i]);
+      walk(i + 1);
+      used[j] = false; taken.pop();
+    });
+  };
+  walk(0);
+  return new Set(best);
+}
+
+/** True when the document in slot k proves the idea of some other slot (answer group j ≠ k). */
+export function fitsOtherSlot(groups, slots, k) {
+  const id = slots[k];
+  return Boolean(id) && groups.some((g, j) => j !== k && g.includes(id));
+}
+
+/**
  * Reverses the light obfuscation applied by the answer encoder (UTF-8 bytes XOR key, then base64).
  * Not security: it only keeps answers from being read at a glance in the page source.
  */
