@@ -8,7 +8,7 @@ import { initReader, openReader } from "./reader.js";
 import { initInquiry, renderInquiry } from "./inquiry.js";
 import { play } from "./sound.js";
 import { dialog, toast, esc } from "./ui.js";
-import { LANG, t, pickLang, translatePage } from "./i18n.js";
+import { LANG, t, pickLang, setLang, caseLang, translatePage } from "./i18n.js";
 
 /** Folder heading for documents of a stage (the last stage holds the ending documents). */
 const folderName = (s) => s === 0 ? t("folderFirst") : s >= QUESTIONS.length ? t("folderEnd") : t("folderN", s + 1);
@@ -251,8 +251,11 @@ async function start() {
   translatePage();
   document.title = t("siteTitle");
   const params = new URLSearchParams(location.search);
-  let known = CASES.find((k) => k.id === params.get("case"));
-  if (known && LANG !== "vi" && !known[LANG]) known = null;  // no English version yet: back to the picker
+  const known = CASES.find((k) => k.id === params.get("case"));
+  // A link to a case without a version in the saved language opens the Vietnamese original (for this page only:
+  // the saved choice stays), with a short note in the player's language.
+  let langNote = "";
+  if (known && caseLang(known, LANG) !== LANG) { langNote = t("viOnly"); setLang(caseLang(known, LANG)); translatePage(); }
   // Wait for the fonts first: card thumbnails are measured once, and Vietnamese accents render wrongly in fallback fonts.
   // Slow phone connections may need longer than the timeout; the board re-measures its cards when the fonts arrive.
   await fontsReady(Boolean(known && known.fonts === "egypt"), 12000);
@@ -263,6 +266,7 @@ async function start() {
   document.querySelector(".brand small").textContent = `${META.short} · ${META.title}`;
   document.querySelector(".brand").firstChild.textContent = META.series;
   boot();
+  if (langNote) toast(langNote, 7000);
 }
 
 start();

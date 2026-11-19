@@ -1,7 +1,7 @@
 // Full-screen document reader: zoom, highlighter, "pin as evidence", and picking a lying line.
 // Opened with openReader(docId). Talks to the rest of the game through js/game.js (state + events).
 import { state, save } from "./store.js";
-import { doc, visibleDocs, currentQuestion, pinsPart, currentPins, togglePin, responseOf, picking, emit, on } from "./game.js";
+import { doc, visibleDocs, currentQuestion, pinsPart, currentPins, pinSlots, togglePin, responseOf, picking, emit, on } from "./game.js";
 import { develop } from "./halftone.js";
 import { play } from "./sound.js";
 import { toast } from "./ui.js";
@@ -10,6 +10,10 @@ import { t } from "./i18n.js";
 /** Blocks the highlighter can mark, in document order. Their index is what gets saved. */
 const HL_SELECTOR = "p, figcaption, .receipt-line, .card-field, .news-deck, .news-head, .news-table tr, .ledger tr, .old-table tr, .typed-sub";
 const ZOOM_STEP = 1.2;
+const PHONE_WIDTH = 700;   // below this window width, text documents re-flow to the screen…
+const PHONE_SCALE = 0.9;   // …and are shown at this scale (body text about 13–15 px)
+/** Documents made of flowing text or tables, which may re-flow on a phone (maps and grids keep their layout). */
+const REFLOW = ".doc--typed, .doc--hand, .doc--weekly, .doc--brochure, .doc--receipt, .doc--old, .doc--papyrus, .doc--ostracon, .doc--news, .doc--ledger, .doc--card";
 
 const el = {};
 let current = null;   // doc id
@@ -89,8 +93,40 @@ function step(dir) {
 function fit() {
   const paper = el.stage.querySelector(".doc");
   if (!paper) return;
-  const avail = el.scroll.clientWidth - (window.innerWidth < 700 ? 16 : 120);
+  const phone = window.innerWidth < PHONE_WIDTH;
+  const avail = el.scroll.clientWidth - (phone ? 16 : 120);
+  reflow(paper, phone ? Math.floor(avail / PHONE_SCALE) : 0);
   setZoom(Math.min(1.25, avail / paper.offsetWidth), true);
+}
+
+/**
+ * On a phone, a fixed-width text document scaled to the screen has 8–9 px text. Instead, re-flow it to a
+ * narrower width (class "phone", width from --phone-w) so it fits at PHONE_SCALE. Documents whose content
+ * cannot get that narrow (wide tables, hieroglyph lines, pictures) overflow and are left as they are.
+ */
+function reflow(paper, width) {
+  paper.classList.remove("phone");
+  if (!width || !paper.matches(REFLOW) || paper.offsetWidth <= width) return;
+  paper.style.setProperty("--phone-w", `${width}px`);
+  paper.classList.add("phone");
+  const overflows = () => paper.scrollWidth > paper.clientWidth + 2;
+  if (overflows()) stackTables(paper);
+  if (overflows()) paper.classList.remove("phone");
+}
+
+/**
+ * Lets wide tables stack on a phone: every row becomes a small card and each cell shows its column name
+ * (copied from the header row into data-col; the stacked look itself is in paper.css under .phone).
+ */
+function stackTables(paper) {
+  paper.querySelectorAll("table").forEach((table) => {
+    const head = [...table.rows].find((r) => r.querySelector("th"));
+    if (!head) return;
+    const names = [...head.cells].map((c) => c.textContent.trim());
+    [...table.rows].forEach((r) => { if (r !== head) [...r.cells].forEach((c, i) => { if (names[i]) c.dataset.col = names[i]; }); });
+    head.classList.add("stack-head");
+    table.classList.add("stack");
+  });
 }
 
 function setZoom(z, keepFit = false) {
@@ -151,7 +187,7 @@ function refreshButtons() {
   } else if (q && pinned) {
     el.banner.hidden = false;
     el.banner.className = "reader-banner pin";
-    el.banner.textContent = t("pinnedBanner", q.id.slice(1));
+    el.banner.textContent = t("pinnedBanner", q.id.slice(1), pinSlots().indexOf(current) + 1);
   } else el.banner.hidden = true;
   // Show the line already chosen for the open question, if it is in this document.
   if (q) {

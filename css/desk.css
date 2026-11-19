@@ -158,13 +158,23 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
 .q-options.long button { width: 100%; }
 .q-number { display: flex; align-items: center; gap: 8px; }
 .q-number input { width: 120px; font: 18px "Plex Mono", monospace; padding: 6px 8px; border: 1.5px solid rgba(0,0,0,.35); border-radius: 3px; background: #fbf6e8; color: var(--ink); }
-.slots { display: flex; flex-direction: column; gap: 6px; }
+.slots { display: flex; flex-direction: column; gap: 8px; }
+/* One evidence slot = one idea to prove: the idea on top, the pinned document (or the pin button) below. */
 .slot { display: flex; align-items: center; gap: 8px; min-height: 38px; border: 1.5px dashed rgba(0,0,0,.35); border-radius: 3px; padding: 4px 6px 4px 10px; font-size: 14px; background: rgba(255,255,255,.35); }
+.slot--idea { flex-direction: column; align-items: stretch; gap: 4px; padding: 6px 6px 6px 10px; }
 .slot.filled { border-style: solid; background: #fff6d1; }
-.slot .x { margin-left: auto; border: 0; background: transparent; font-size: 18px; line-height: 1; padding: 4px 6px; color: var(--red); }
+.slot.lacking { border-color: var(--red); box-shadow: inset 3px 0 0 var(--red); }
+.slot-idea { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; line-height: 1.35; }
+.slot-idea b { font-family: var(--ui); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--red); }
+.slot-idea span { font-weight: 600; }
+.slot-lack { margin-left: auto; font-style: normal; font-family: var(--ui); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--red); }
+.slot-doc { display: flex; align-items: center; gap: 8px; min-height: 34px; }
+.slot-pick { border: 0; background: transparent; padding: 4px 0; font: inherit; color: var(--ink); text-align: left; cursor: pointer; text-decoration: underline dotted rgba(0,0,0,.35); text-underline-offset: 3px; }
+.slot-add { margin-left: auto; padding: 6px 10px; font-size: 13px; }
+.slot .x { margin-left: auto; border: 0; background: transparent; font-size: 20px; line-height: 1; padding: 6px 8px; color: var(--red); }
 .slot .empty { color: var(--muted); font-style: italic; }
 .q-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
-.q-feedback { margin-top: 10px; font-size: 14.5px; padding: 8px 10px; border-left: 4px solid var(--red); background: rgba(168,38,29,.08); }
+.q-feedback { white-space: pre-line; margin-top: 10px; font-size: 14.5px; padding: 8px 10px; border-left: 4px solid var(--red); background: rgba(168,38,29,.08); }
 .q-feedback.ok { border-color: var(--green); background: rgba(47,107,58,.1); }
 .q-hints { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 10px; }
 .q-hints .hint { font-size: 14.5px; background: #fff9e3; border: 1px solid rgba(0,0,0,.15); padding: 8px 10px; margin: 6px 0; border-radius: 2px; }
@@ -268,6 +278,10 @@ button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible
   .reader-bar [data-act=hl] .lbl { display: none; }
   .folder-cover { padding: 30px 22px 24px; }
   .folder-cover .stamp-top { top: auto; bottom: 26px; right: 20px; font-size: 13px; }
+  /* Picker cards are short: the stamp goes back to the top corner so it does not cover the facts row. */
+  .folder-cover.mini .stamp-top { top: 14px; bottom: auto; right: 14px; }
+  /* Toasts sit above the bottom tab bar. */
+  .toast { bottom: calc(56px + 12px + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* ---------- Case picker ---------- */

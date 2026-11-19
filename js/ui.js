@@ -2,13 +2,13 @@
 import { t } from "./i18n.js";
 
 let toastTimer = 0;
-/** Shows a short message at the bottom of the screen. */
-export function toast(text) {
+/** Shows a short message at the bottom of the screen for ms milliseconds. */
+export function toast(text, ms = 2600) {
   const t = document.getElementById("toast");
   t.textContent = text;
   t.classList.add("show");
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+  toastTimer = setTimeout(() => t.classList.remove("show"), ms);
 }
 
 /**

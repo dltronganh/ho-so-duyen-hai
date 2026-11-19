@@ -23,6 +23,14 @@ export function pickLang() {
   return LANG;
 }
 
+/**
+ * The language a case opens in: the wanted language when the case has that version, else Vietnamese
+ * (every case exists in Vietnamese). caseEntry is a picker card from cases/list.js. Pure: unit tested.
+ */
+export function caseLang(caseEntry, wanted) {
+  return wanted === "vi" || caseEntry?.[wanted] ? wanted : "vi";
+}
+
 const DICT = {
   vi: {
     loading: "Đang mở hồ sơ…",
@@ -55,7 +63,7 @@ const DICT = {
     <li><b>Bàn:</b> kéo nền để di chuyển, cuộn chuột (hoặc chụm hai ngón) để phóng to. Kéo giấy tờ để sắp xếp. Bấm vào giấy để đọc.</li>
     <li><b>Nối chỉ đỏ:</b> bật nút "Nối chỉ đỏ", bấm lần lượt hai giấy tờ. Muốn gỡ: bấm vào sợi chỉ rồi bấm nút ✕ hiện ra, hoặc khi đang nối chỉ thì bấm lại đúng hai giấy tờ đó.</li>
     <li><b>Đọc giấy tờ:</b> phóng to, thu nhỏ; phím ← → để lật; <b>Bút dạ</b> để tô các đoạn quan trọng.</li>
-    <li><b>Ghim làm bằng chứng:</b> nút trên thanh đọc, hoặc "Ghim từ danh sách" trong ô trọng điểm.</li>
+    <li><b>Ghim làm bằng chứng:</b> mỗi ô ghim ứng với một ý cần chứng minh. Bấm "＋ Ghim tài liệu" ở đúng ô đó, hoặc nút "Ghim" trên thanh đọc (tài liệu vào ô trống đầu tiên).</li>
     <li><b>Câu nói dối:</b> bấm "Chọn câu trong lời khai", mở lời khai, rồi bấm vào câu đó.</li>
     <li><b>Sổ tay:</b> ghi chép tự do, tự lưu.</li>
     <li>Mọi thứ cần để phá án đều nằm trong giấy tờ. Có thể cần tính toán đơn giản.</li></ul>`,
@@ -75,18 +83,22 @@ const DICT = {
     solutionOf: (boss) => `Lời giải của ${boss}`, hintN: (n) => `Gợi ý ${n}`, showHint: (n, m) => `Xem gợi ý ${n}/${m}`,
     showSolution: "Xem lời giải", submit: "Nộp kết luận", up: "Lên", down: "Xuống", noLine: "Chưa chọn câu nào", unpick: "Bỏ chọn",
     waitingLine: "Đang chờ bạn bấm vào một câu…", pickLine: "Chọn câu trong lời khai", unpin: "Bỏ ghim",
-    slotEmpty: (n) => `Ô bằng chứng ${n}: mở tài liệu rồi bấm "Ghim"`, pinFromList: "＋ Ghim từ danh sách",
+    slotEmpty: "Chưa ghim", pinFromList: "＋ Ghim tài liệu", ideaN: (n) => `Ý ${n}`, ideaFallback: (n) => `Bằng chứng ${n}`,
+    changePin: "Đổi tài liệu khác", lackingMark: "đổi tài liệu này", pinSlotHelp: "Bấm một tài liệu để ghim vào ô này.",
+    missingIdeas: (list) => `bằng chứng cho ý ${list}`,
+    reportOne: (ok) => `Kết luận: ${ok ? "đúng" : "chưa đúng"}`, reportMany: (a, b) => `Kết luận: đúng ${a}/${b} phần`,
+    evidenceOk: "Bằng chứng: đủ", evidenceLacking: (list) => `Bằng chứng: chưa đủ cho ý ${list} (đổi tài liệu có dấu ✗)`,
     pickLineToast: "Mở một lời khai, rồi bấm vào câu bạn cho là nói dối.", pinTitle: "Ghim bằng chứng", pinListHelp: "Bấm để ghim hoặc bỏ ghim.",
     hintH3: "Gợi ý", hintH2: (n) => `Mở gợi ý ${n}?`, hintP: "Gợi ý giúp bạn đi đúng hướng mà không nói thẳng đáp án. Số gợi ý đã dùng sẽ được ghi ở cuối hồ sơ.",
     openHint: "Mở gợi ý", solH3: "Lời giải", solH2: (t) => `Xem lời giải: ${t}?`, solP: "Bạn sẽ thấy toàn bộ đáp án của trọng điểm này.",
-    gotIt: "Hiểu rồi, đi tiếp", missing: (list) => `Còn thiếu: ${list}.`, partsRight: (a, b) => ` (Đúng ${a}/${b} phần.)`,
+    gotIt: "Hiểu rồi, đi tiếp", missing: (list) => `Còn thiếu: ${list}.`,
     stuck: " Bí quá thì mở gợi ý bên dưới nhé.",
     // game
-    noOpenQ: "Không có trọng điểm nào đang mở.", unpinned: "Đã bỏ ghim.", full: (n) => `Đã đủ ${n} tài liệu. Bỏ bớt một ghim trước.`, pinned: "Đã ghim làm bằng chứng.",
+    noOpenQ: "Không có trọng điểm nào đang mở.", unpinned: "Đã bỏ ghim.", full: (n) => `Đã đủ ${n} tài liệu. Bỏ bớt một ghim trước.`, pinnedTo: (n) => `Đã ghim làm bằng chứng cho ý ${n}.`,
     // reader
     hlOn: "Bút dạ: bấm vào một đoạn để tô hoặc bỏ tô.", hlOff: "Đã cất bút dạ.", clickLine: "Hãy bấm vào một câu trả lời trong lời khai.",
     lineChosen: "Đã chọn câu này.", pinPlain: "Ghim bằng chứng", unpinN: (a, b) => `Bỏ ghim (${a}/${b})`, pinN: (a, b) => `Ghim làm bằng chứng (${a}/${b})`,
-    pickBanner: "Bấm vào câu bạn cho là nói dối (trong một lời khai).", cancelPick: "Huỷ", pinnedBanner: (n) => `Tài liệu này đang được ghim làm bằng chứng cho Trọng điểm ${n}.`,
+    pickBanner: "Bấm vào câu bạn cho là nói dối (trong một lời khai).", cancelPick: "Huỷ", pinnedBanner: (n, k) => `Tài liệu này đang được ghim làm bằng chứng cho Trọng điểm ${n}, ý ${k}.`,
     // board
     tidied: "Đã xếp lại các tài liệu theo từng tập.", stringRemoved: "Đã gỡ sợi chỉ.",
     linkHint: "Nối chỉ đỏ: bấm vào hai tài liệu liên quan tới nhau. Bấm lại đúng hai tài liệu đó để gỡ.",
@@ -123,7 +135,7 @@ const DICT = {
     <li><b>Board:</b> drag the background to move, scroll (or pinch) to zoom. Drag papers to arrange them. Tap a paper to read it.</li>
     <li><b>Red string:</b> switch on "Red string", then tap two papers. To remove one: tap the string, then the ✕ that appears; or, in string mode, tap the same two papers again.</li>
     <li><b>Reading:</b> zoom in and out; ← → keys turn pages; the <b>Highlighter</b> marks important passages.</li>
-    <li><b>Pin as evidence:</b> the button on the reading bar, or "Pin from list" in the question box.</li>
+    <li><b>Pin as evidence:</b> each evidence slot names one point to prove. Tap "＋ Pin a document" in that slot, or "Pin" on the reading bar (the document goes into the first empty slot).</li>
     <li><b>The false statement:</b> tap "Pick a line in a statement", open the statement, then tap that line.</li>
     <li><b>Notebook:</b> free notes, saved automatically.</li>
     <li>Everything needed to solve the case is in the papers. Some simple arithmetic may be needed.</li></ul>`,
@@ -135,6 +147,7 @@ const DICT = {
     solvedMark: "✓ Solved", inProgress: "In progress", notOpened: "Not opened",
     pickTitle: "Choose a case", pickSub: "Each case is a separate mystery, played on its own. Progress is saved in this browser.",
     progressLbl: "Progress", langSwitch: "Tiếng Việt", langNote: "Cases 01–03 are available in Vietnamese only for now.",
+    viOnly: "This case is available in Vietnamese only for now, so it opens in Vietnamese.",
     wrong: (boss) => [`The ${boss} has put a red line through your draft: "Not convincing. Read the papers again."`,
       "Not right. At least one point of your conclusion does not match the papers.",
       "Still not right. Cross-check times, numbers and names between the documents."],
@@ -142,16 +155,20 @@ const DICT = {
     solutionOf: (boss) => `The ${boss}'s solution`, hintN: (n) => `Hint ${n}`, showHint: (n, m) => `Show hint ${n}/${m}`,
     showSolution: "Show the solution", submit: "Submit conclusion", up: "Up", down: "Down", noLine: "No line chosen", unpick: "Clear",
     waitingLine: "Waiting for you to tap a line…", pickLine: "Pick a line in a statement", unpin: "Unpin",
-    slotEmpty: (n) => `Evidence slot ${n}: open a document, then tap "Pin"`, pinFromList: "＋ Pin from list",
+    slotEmpty: "Nothing pinned", pinFromList: "＋ Pin a document", ideaN: (n) => `Point ${n}`, ideaFallback: (n) => `Evidence ${n}`,
+    changePin: "Choose another document", lackingMark: "swap this one", pinSlotHelp: "Tap a document to pin it in this slot.",
+    missingIdeas: (list) => `evidence for point ${list}`,
+    reportOne: (ok) => `Conclusion: ${ok ? "right" : "not right"}`, reportMany: (a, b) => `Conclusion: ${a}/${b} parts right`,
+    evidenceOk: "Evidence: enough", evidenceLacking: (list) => `Evidence: not enough for point ${list} (swap the document marked ✗)`,
     pickLineToast: "Open a statement, then tap the line you think is false.", pinTitle: "Pin evidence", pinListHelp: "Tap to pin or unpin.",
     hintH3: "Hint", hintH2: (n) => `Open hint ${n}?`, hintP: "Hints point you the right way without giving the answer. The number of hints used is shown when the case is closed.",
     openHint: "Open hint", solH3: "Solution", solH2: (t) => `View the solution: ${t}?`, solP: "You will see the full answer to this question.",
-    gotIt: "Got it, move on", missing: (list) => `Still missing: ${list}.`, partsRight: (a, b) => ` (${a}/${b} parts right.)`,
+    gotIt: "Got it, move on", missing: (list) => `Still missing: ${list}.`,
     stuck: " Stuck? Open a hint below.",
-    noOpenQ: "No question is open.", unpinned: "Unpinned.", full: (n) => `Already ${n} documents. Remove a pin first.`, pinned: "Pinned as evidence.",
+    noOpenQ: "No question is open.", unpinned: "Unpinned.", full: (n) => `Already ${n} documents. Remove a pin first.`, pinnedTo: (n) => `Pinned as evidence for point ${n}.`,
     hlOn: "Highlighter: tap a passage to mark or unmark it.", hlOff: "Highlighter put away.", clickLine: "Tap a line of a statement.",
     lineChosen: "Line chosen.", pinPlain: "Pin as evidence", unpinN: (a, b) => `Unpin (${a}/${b})`, pinN: (a, b) => `Pin as evidence (${a}/${b})`,
-    pickBanner: "Tap the line you think is false (in a statement).", cancelPick: "Cancel", pinnedBanner: (n) => `This document is pinned as evidence for Question ${n}.`,
+    pickBanner: "Tap the line you think is false (in a statement).", cancelPick: "Cancel", pinnedBanner: (n, k) => `This document is pinned as evidence for Question ${n}, point ${k}.`,
     tidied: "Documents tidied up by folder.", stringRemoved: "String removed.",
     linkHint: "Red string: tap two related documents. Tap the same two again to remove the string.",
     removeString: "Remove string",

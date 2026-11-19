@@ -260,3 +260,24 @@
 /* Photographed inside the display case: darker mount and a glass reflection. */
 .pap-photo.case { background: #3b4446; padding: 18px; }
 .pap-photo.case .pap-sheet::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.22) 38%, transparent 46%, transparent 70%, rgba(255,255,255,.12) 76%, transparent 82%); }
+
+/* ---------- Phone reading: the reader re-flows a text document to the screen width (js/reader.js reflow) ---------- */
+.doc.phone { width: var(--phone-w) !important; padding: 26px 18px 30px; }
+.doc--hand.phone { padding-left: 72px; }
+.doc--news.phone .news-grid { grid-template-columns: 1fr !important; }
+.doc--news.phone .news-cols { columns: 1 !important; text-align: left; }
+.doc--news.phone .news-mast { font-size: 46px; }
+.doc--news.phone .news-head { font-size: 30px; }
+.doc--news.phone .news-head.sm { font-size: 24px; }
+.doc--news.phone .news-deck { margin: 0 0 12px; font-size: 17px; }
+.doc--news.phone .news-bar, .doc--news.phone .news-top, .doc--news.phone .news-foot { flex-wrap: wrap; }
+.doc--weekly.phone, .doc--typed.phone, .doc--papyrus.phone, .doc--ostracon.phone { padding: 26px 16px 30px; }
+.doc--typed.phone .typed-head, .doc--typed.phone .typed-sign { gap: 8px; }
+/* Statement lines are tap targets when picking a false line: a little more room between them. */
+.doc.phone .line { padding: 3px 0; }
+/* Wide tables on a phone: one small card per row, each cell labelled with its column (data-col, set by the reader). */
+.doc.phone table.stack, .doc.phone table.stack tbody, .doc.phone table.stack tr { display: block; width: 100%; }
+.doc.phone table.stack tr.stack-head, .doc.phone table.stack tr.blank { display: none; }
+.doc.phone table.stack tr { border: 1px solid rgba(60, 50, 30, .45); margin-bottom: 6px; padding: 4px 8px; }
+.doc.phone table.stack td { display: flex; align-items: baseline; gap: 10px; border: 0; height: auto; padding: 1px 0; text-align: left; }
+.doc.phone table.stack td[data-col]::before { content: attr(data-col); flex: 0 0 38%; font-family: "Oswald", sans-serif; font-size: 12px; letter-spacing: .03em; text-transform: uppercase; color: #6d6150; }

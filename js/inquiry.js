@@ -2,19 +2,22 @@
 // Checking is done by js/answer.js; this file only builds the form and reacts to the player.
 // onSolved(question) is called by the app when the open question is answered correctly (or the solution is used).
 import { state, save } from "./store.js";
-import { QUESTIONS, SECRETS, META, doc, visibleDocs, currentQuestion, responseOf, picking, togglePin, on, emit } from "./game.js";
-import { checkQuestion, checkPart, isFilled } from "./answer.js";
+import { QUESTIONS, SECRETS, META, doc, visibleDocs, currentQuestion, responseOf, picking, togglePin, pinSlots, ideaOf, on, emit } from "./game.js";
+import { checkQuestion, isFilled, partReport } from "./answer.js";
 import { play } from "./sound.js";
 import { toast, dialog, esc } from "./ui.js";
 import { t } from "./i18n.js";
 
 /** Wrong-answer notes, in turn. */
 const wrongNotes = () => t("wrong", META.boss?.role ?? t("defaultBoss"));
-const SHOW_SCORE_AFTER = 4;  // after this many wrong tries, tell how many parts are right
+// From this many wrong tries on, a wrong answer is reported part by part: the conclusion (how many parts are
+// right; never in hard cases) and which evidence ideas still lack a fitting document (the documents to swap are marked). Earlier, the report would
+// give two-option answers away.
+const SHOW_SCORE_AFTER = 4;
 
 let root = null;
 let onSolved = () => {};
-let feedback = null;         // { qid, text, ok }
+let feedback = null;         // { qid, text, ok, marks } (marks: slots whose document to swap, cleared when the pins change)
 
 /** Sets up the panel. solvedCallback(question, { peeked }) runs when the open question is solved. */
 export function initInquiry(solvedCallback) {
@@ -22,7 +25,7 @@ export function initInquiry(solvedCallback) {
   onSolved = solvedCallback;
   root.addEventListener("click", onClick);
   root.addEventListener("input", onInput);
-  on("pins", renderInquiry);
+  on("pins", () => { if (feedback) feedback.marks = null; renderInquiry(); });
   on("pick", renderInquiry);
 }
 
@@ -96,14 +99,18 @@ function partHtml(q, p, value, r) {
       <div class="q-actions"><button class="btn btn--paper ${active ? "on" : ""}" data-act="pickline" data-part="${p.id}">${active ? t("waitingLine") : t("pickLine")}</button></div></div>`;
   }
   if (p.type === "pins") {
-    const pins = value || [];
-    const slots = Array.from({ length: p.count }, (_, k) => {
-      const id = pins[k];
-      return id ? `<div class="slot filled">📌 ${esc(doc(id).label)}<button class="x" data-act="unpin" data-doc="${id}" title="${t("unpin")}">×</button></div>`
-        : `<div class="slot"><span class="empty">${esc(t("slotEmpty", k + 1))}</span></div>`;
+    const pins = pinSlots();
+    const marks = (feedback && feedback.qid === q.id && feedback.marks) || [];
+    const slots = pins.map((id, k) => {
+      const idea = ideaOf(q.id, k), lack = marks.includes(k);
+      const top = `<div class="slot-idea"><b>${idea ? t("ideaN", k + 1) : t("ideaFallback", k + 1)}</b>${idea ? `<span>${esc(idea)}</span>` : ""}${
+        lack ? `<em class="slot-lack">✗ ${t("lackingMark")}</em>` : ""}</div>`;
+      const body = id
+        ? `<div class="slot-doc"><button class="slot-pick" data-act="pickdoc" data-slot="${k}" title="${t("changePin")}">📌 ${esc(doc(id)?.label || id)}</button><button class="x" data-act="unpin" data-doc="${id}" title="${t("unpin")}">×</button></div>`
+        : `<div class="slot-doc"><span class="empty">${t("slotEmpty")}</span><button class="btn btn--paper slot-add" data-act="pickdoc" data-slot="${k}">${t("pinFromList")}</button></div>`;
+      return `<div class="slot slot--idea${id ? " filled" : ""}${lack ? " lacking" : ""}">${top}${body}</div>`;
     }).join("");
-    return `<div class="q-part">${head}<div class="slots">${slots}</div>
-      <div class="q-actions"><button class="btn btn--paper" data-act="pickdoc">${t("pinFromList")}</button></div></div>`;
+    return `<div class="q-part">${head}<div class="slots">${slots}</div></div>`;
   }
   return "";
 }
@@ -130,7 +137,7 @@ async function onClick(e) {
     emit("pick");
     if (picking.active) toast(t("pickLineToast"));
   }
-  else if (act === "pickdoc") pickFromList(q);
+  else if (act === "pickdoc") pickFromList(q, Number(b.dataset.slot));
   else if (act === "hint") showHint(q);
   else if (act === "solution") showSolution(q);
   else if (act === "submit") submit(q);
@@ -144,19 +151,24 @@ function onInput(e) {
   save();
 }
 
-async function pickFromList(q) {
-  const pinned = responseOf(q.id).pins || [];
+/** The document list for one evidence slot: tapping a document pins it in that slot and closes the list. */
+async function pickFromList(q, slot) {
+  const pins = pinSlots();
+  const mark = (id) => { const k = pins.indexOf(id); return k < 0 ? "" : k === slot ? "📌" : `📌 ${t("ideaN", k + 1)}`; };
   const items = visibleDocs().map((d) => `<button class="folder-item" data-pick="${d.id}" style="grid-template-columns:1fr auto">
-      <span class="folder-label">${esc(d.label)}</span><span>${pinned.includes(d.id) ? "📌" : ""}</span></button>`).join("");
+      <span class="folder-label">${esc(d.label)}</span><span class="small">${mark(d.id)}</span></button>`).join("");
+  const idea = ideaOf(q.id, slot);
   const m = document.getElementById("modal");
-  const p = dialog(`<h3>${t("pinTitle")}</h3><h2>${q.title}</h2><p class="small">${t("pinListHelp")}</p><div class="pick-list">${items}</div>`,
-    [{ label: t("done"), value: true, cls: "btn--red" }]);
+  const p = dialog(`<h3>${t("pinTitle")} · ${t("qN", QUESTIONS.indexOf(q) + 1)}</h3>
+    <h2>${idea ? `${t("ideaN", slot + 1)}: ${esc(idea)}` : t("ideaFallback", slot + 1)}</h2>
+    <p class="small">${t("pinSlotHelp")}</p><div class="pick-list">${items}</div>`,
+    [{ label: t("close"), value: true, cls: "btn--paper" }]);
   m.querySelector(".pick-list").addEventListener("click", (ev) => {
     const it = ev.target.closest("[data-pick]");
     if (!it) return;
-    toast(togglePin(it.dataset.pick));
+    toast(togglePin(it.dataset.pick, slot));
     play("pin");
-    it.lastElementChild.textContent = (responseOf(q.id).pins || []).includes(it.dataset.pick) ? "📌" : "";
+    m.querySelector(".actions .btn")?.click();
   });
   await p;
 }
@@ -191,7 +203,8 @@ function submit(q) {
   const missing = q.parts.filter((p) => !isFilled(p, r[p.id]));
   const card = root.querySelector(".q-card[data-q]");
   if (missing.length) {
-    toast(t("missing", missing.map((p) => p.label.toLowerCase()).join("; ")));
+    const emptySlots = (r.pins || []).map((id, k) => (id ? 0 : k + 1)).filter(Boolean).join(", ");
+    toast(t("missing", missing.map((p) => (p.type === "pins" && emptySlots ? t("missingIdeas", emptySlots) : p.label.toLowerCase())).join("; ")));
     card?.classList.add("shake"); setTimeout(() => card?.classList.remove("shake"), 450);
     return;
   }
@@ -203,12 +216,17 @@ function submit(q) {
   const n = state.tries[q.id];
   const notes = wrongNotes();
   let text = notes[(n - 1) % notes.length];
-  if (n >= SHOW_SCORE_AFTER && !META.hard) {
-    const right = q.parts.filter((p) => checkPart(p, answers[p.id], r[p.id])).length;
-    text += t("partsRight", right, q.parts.length);
+  let marks = null;
+  if (n >= SHOW_SCORE_AFTER) {
+    const rep = partReport(q, answers, r);
+    const lines = [];
+    if (!META.hard) lines.push(rep.total === 1 ? t("reportOne", rep.right === 1) : t("reportMany", rep.right, rep.total));
+    lines.push(rep.lacking.length ? t("evidenceLacking", rep.lacking.map((k) => k + 1).join(", ")) : t("evidenceOk"));
+    text += `\n${lines.join(" · ")}.`;
+    marks = rep.idle;  // the documents to swap, not the slots of the unproven ideas (placement is free)
   }
   if (n >= 3 && (state.hints[q.id] || 0) === 0) text += t("stuck");
-  feedback = { qid: q.id, text, ok: false };
+  feedback = { qid: q.id, text, ok: false, marks };
   play("wrong");
   renderInquiry();
   const c2 = root.querySelector(".q-card[data-q]");

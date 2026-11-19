@@ -54,22 +54,52 @@ export function pinsPart() {
   return q ? q.parts.find((p) => p.type === "pins") || null : null;
 }
 
-/** Document ids pinned for the open question. */
+/** Document ids pinned for the open question (empty slots left out). */
 export function currentPins() {
-  const q = currentQuestion();
-  return q ? responseOf(q.id).pins || [] : [];
+  return pinSlots().filter(Boolean);
 }
 
-/** Pins or unpins a document as evidence for the open question. Returns a short message for the player. */
-export function togglePin(docId) {
+/**
+ * The evidence slots of the open question: one entry per idea to prove, a document id or null.
+ * Older saves kept a packed list; it is padded here so its documents keep their slots.
+ */
+export function pinSlots() {
+  const q = currentQuestion(), part = pinsPart();
+  if (!q || !part) return [];
+  const r = responseOf(q.id);
+  const old = Array.isArray(r.pins) ? r.pins : [];
+  r.pins = Array.from({ length: part.count }, (_, k) => old[k] || null);
+  return r.pins;
+}
+
+/** The label of the idea an evidence slot must prove (from the case data), or "" when the case has none. */
+export const ideaOf = (qid, k) => SECRETS[qid]?.ideas?.[k] || "";
+
+/**
+ * Pins or unpins a document as evidence for the open question. Returns a short message for the player.
+ * Without a slot: unpins a pinned document, else fills the first empty slot.
+ * With a slot: puts the document in that slot (moving it from another slot, or replacing what was there).
+ */
+export function togglePin(docId, slot = null) {
   const q = currentQuestion(), part = pinsPart();
   if (!q || !part) return t("noOpenQ");
-  const r = responseOf(q.id);
-  const pins = r.pins || (r.pins = []);
+  const pins = pinSlots();
   const i = pins.indexOf(docId);
-  if (i >= 0) { pins.splice(i, 1); save(); emit("pins"); return t("unpinned"); }
-  if (pins.length >= part.count) return t("full", part.count);
-  pins.push(docId); save(); emit("pins"); return t("pinned");
+  let msg;
+  if (slot === null) {
+    if (i >= 0) { pins[i] = null; msg = t("unpinned"); }
+    else {
+      const free = pins.indexOf(null);
+      if (free < 0) return t("full", part.count);
+      pins[free] = docId; msg = t("pinnedTo", free + 1);
+    }
+  } else if (i === slot) { pins[i] = null; msg = t("unpinned"); }
+  else {
+    if (i >= 0) pins[i] = null;
+    pins[slot] = docId; msg = t("pinnedTo", slot + 1);
+  }
+  save(); emit("pins");
+  return msg;
 }
 
 // ---- event bus ----
