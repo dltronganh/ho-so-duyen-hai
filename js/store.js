@@ -19,6 +19,9 @@ function fresh() {
     hints: {},           // questionId -> number of hints shown (0..3)
     peeked: {},          // questionId -> true when the solution was revealed
     tries: {},           // questionId -> wrong submissions
+    checks: {},          // questionId -> hints spent on slot checks
+    checked: {},         // questionId -> { slotIndex: { docId: true when that document proves the slot's idea } }
+    checkTip: false,     // true once the note about slot checks has been shown (once per case)
     view: null,          // board pan/zoom { x, y, z }
     sound: true,
     startedAt: null,
@@ -26,13 +29,18 @@ function fresh() {
   };
 }
 
+/**
+ * A saved investigation read back: fields added in later versions of the game take their defaults, so older
+ * saves keep working. Anything unreadable starts fresh.
+ */
+export function migrate(data) {
+  return data && data.v === 1 ? { ...fresh(), ...data } : fresh();
+}
+
 function load() {
   try {
     const raw = localStorage.getItem(KEY);
-    if (raw) {
-      const data = JSON.parse(raw);
-      if (data && data.v === 1) return { ...fresh(), ...data };
-    }
+    if (raw) return migrate(JSON.parse(raw));
   } catch { /* storage blocked or corrupt: start fresh */ }
   return fresh();
 }

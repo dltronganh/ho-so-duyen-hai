@@ -64,13 +64,14 @@ const DICT = {
     <li><b>Nối chỉ đỏ:</b> bật nút "Nối chỉ đỏ", bấm lần lượt hai giấy tờ. Muốn gỡ: bấm vào sợi chỉ rồi bấm nút ✕ hiện ra, hoặc khi đang nối chỉ thì bấm lại đúng hai giấy tờ đó.</li>
     <li><b>Đọc giấy tờ:</b> phóng to, thu nhỏ; phím ← → để lật; <b>Bút dạ</b> để tô các đoạn quan trọng.</li>
     <li><b>Ghim làm bằng chứng:</b> mỗi ô ghim ứng với một ý cần chứng minh. Bấm "＋ Ghim tài liệu" ở đúng ô đó, hoặc nút "Ghim" trên thanh đọc (tài liệu vào ô trống đầu tiên).</li>
+    <li><b>Kiểm tra ô:</b> nút "Kiểm tra ô này" cho biết tài liệu trong ô đã đủ chứng minh ý của ô chưa (tốn 1 gợi ý). Phần kết luận không kiểm tra được.</li>
     <li><b>Câu nói dối:</b> bấm "Chọn câu trong lời khai", mở lời khai, rồi bấm vào câu đó.</li>
     <li><b>Sổ tay:</b> ghi chép tự do, tự lưu.</li>
     <li>Mọi thứ cần để phá án đều nằm trong giấy tờ. Có thể cần tính toán đơn giản.</li></ul>`,
     correct: "Chính xác!", peekedSol: "Đã xem lời giải", letterFrom: (boss) => `Thư của ${boss}`,
     newDocs: (n) => `<b>${n} giấy tờ mới</b> đã được đặt lên bàn:`, toDesk: "Lên bàn xem",
     endH3: "Hồ sơ khép lại", minutes: "phút", hintsUsed: "gợi ý đã dùng", wrongTries: "lần nộp sai",
-    peeksLine: (n) => `Đã xem lời giải ${n} trọng điểm.`, noPeeks: (boss) => `Không cần xem lời giải lần nào. ${cap(boss)} hài lòng lắm.`,
+    checksLine: (n) => `Trong số gợi ý có ${n} lần kiểm tra ô ghim.`, peeksLine: (n) => `Đã xem lời giải ${n} trọng điểm.`, noPeeks: (boss) => `Không cần xem lời giải lần nào. ${cap(boss)} hài lòng lắm.`,
     endDocs: "Hai giấy tờ cuối đã được đặt lên bàn.", stay: "Ở lại bàn", readEnd: "Đọc giấy tờ cuối",
     solvedMark: "✓ Đã phá án", inProgress: "Đang điều tra", notOpened: "Chưa mở",
     pickTitle: "Chọn một hồ sơ", pickSub: "Mỗi hồ sơ là một vụ án riêng, chơi độc lập. Tiến trình lưu trong trình duyệt này.",
@@ -84,10 +85,11 @@ const DICT = {
     showSolution: "Xem lời giải", submit: "Nộp kết luận", up: "Lên", down: "Xuống", noLine: "Chưa chọn câu nào", unpick: "Bỏ chọn",
     waitingLine: "Đang chờ bạn bấm vào một câu…", pickLine: "Chọn câu trong lời khai", unpin: "Bỏ ghim",
     slotEmpty: "Chưa ghim", pinFromList: "＋ Ghim tài liệu", ideaN: (n) => `Ý ${n}`, ideaFallback: (n) => `Bằng chứng ${n}`,
-    changePin: "Đổi tài liệu khác", lackingMark: "đổi tài liệu này", pinSlotHelp: "Bấm một tài liệu để ghim vào ô này.",
+    changePin: "Đổi tài liệu khác", pinSlotHelp: "Bấm một tài liệu để ghim vào ô này.",
     missingIdeas: (list) => `bằng chứng cho ý ${list}`,
-    reportOne: (ok) => `Kết luận: ${ok ? "đúng" : "chưa đúng"}`, reportMany: (a, b) => `Kết luận: đúng ${a}/${b} phần`,
-    evidenceOk: "Bằng chứng: đủ", evidenceLacking: (list) => `Bằng chứng: chưa đủ cho ý ${list} (đổi tài liệu có dấu ✗)`,
+    checkSlot: "Kiểm tra ô này", checkCost: "1 gợi ý", slotOk: "đủ", slotLacking: "chưa đủ",
+    checkedToast: (k, ok) => ok ? `Ý ${k}: tài liệu này đủ chứng minh.` : `Ý ${k}: tài liệu này chưa đủ chứng minh.`,
+    checkTip: "Bạn có thể kiểm tra từng ô ghim (tốn 1 lượt gợi ý).",
     pickLineToast: "Mở một lời khai, rồi bấm vào câu bạn cho là nói dối.", pinTitle: "Ghim bằng chứng", pinListHelp: "Bấm để ghim hoặc bỏ ghim.",
     hintH3: "Gợi ý", hintH2: (n) => `Mở gợi ý ${n}?`, hintP: "Gợi ý giúp bạn đi đúng hướng mà không nói thẳng đáp án. Số gợi ý đã dùng sẽ được ghi ở cuối hồ sơ.",
     openHint: "Mở gợi ý", solH3: "Lời giải", solH2: (t) => `Xem lời giải: ${t}?`, solP: "Bạn sẽ thấy toàn bộ đáp án của trọng điểm này.",
@@ -136,13 +138,14 @@ const DICT = {
     <li><b>Red string:</b> switch on "Red string", then tap two papers. To remove one: tap the string, then the ✕ that appears; or, in string mode, tap the same two papers again.</li>
     <li><b>Reading:</b> zoom in and out; ← → keys turn pages; the <b>Highlighter</b> marks important passages.</li>
     <li><b>Pin as evidence:</b> each evidence slot names one point to prove. Tap "＋ Pin a document" in that slot, or "Pin" on the reading bar (the document goes into the first empty slot).</li>
+    <li><b>Check a slot:</b> "Check this slot" tells you whether the document in that slot is enough proof of its point (costs 1 hint). Conclusions cannot be checked.</li>
     <li><b>The false statement:</b> tap "Pick a line in a statement", open the statement, then tap that line.</li>
     <li><b>Notebook:</b> free notes, saved automatically.</li>
     <li>Everything needed to solve the case is in the papers. Some simple arithmetic may be needed.</li></ul>`,
     correct: "Correct!", peekedSol: "Solution viewed", letterFrom: (boss) => `A note from the ${boss}`,
     newDocs: (n) => `<b>${n} new ${n === 1 ? "paper has" : "papers have"}</b> been put on your desk:`, toDesk: "To the desk",
     endH3: "Case closed", minutes: "minutes", hintsUsed: "hints used", wrongTries: "wrong submissions",
-    peeksLine: (n) => `Solution viewed for ${n} question${n === 1 ? "" : "s"}.`, noPeeks: (boss) => `Not a single solution viewed. The ${boss} is very pleased.`,
+    checksLine: (n) => `Including ${n} evidence slot ${n === 1 ? "check" : "checks"}.`, peeksLine: (n) => `Solution viewed for ${n} question${n === 1 ? "" : "s"}.`, noPeeks: (boss) => `Not a single solution viewed. The ${boss} is very pleased.`,
     endDocs: "The last two papers have been put on your desk.", stay: "Stay at the desk", readEnd: "Read the last papers",
     solvedMark: "✓ Solved", inProgress: "In progress", notOpened: "Not opened",
     pickTitle: "Choose a case", pickSub: "Each case is a separate mystery, played on its own. Progress is saved in this browser.",
@@ -156,10 +159,11 @@ const DICT = {
     showSolution: "Show the solution", submit: "Submit conclusion", up: "Up", down: "Down", noLine: "No line chosen", unpick: "Clear",
     waitingLine: "Waiting for you to tap a line…", pickLine: "Pick a line in a statement", unpin: "Unpin",
     slotEmpty: "Nothing pinned", pinFromList: "＋ Pin a document", ideaN: (n) => `Point ${n}`, ideaFallback: (n) => `Evidence ${n}`,
-    changePin: "Choose another document", lackingMark: "swap this one", pinSlotHelp: "Tap a document to pin it in this slot.",
+    changePin: "Choose another document", pinSlotHelp: "Tap a document to pin it in this slot.",
     missingIdeas: (list) => `evidence for point ${list}`,
-    reportOne: (ok) => `Conclusion: ${ok ? "right" : "not right"}`, reportMany: (a, b) => `Conclusion: ${a}/${b} parts right`,
-    evidenceOk: "Evidence: enough", evidenceLacking: (list) => `Evidence: not enough for point ${list} (swap the document marked ✗)`,
+    checkSlot: "Check this slot", checkCost: "1 hint", slotOk: "enough", slotLacking: "not enough",
+    checkedToast: (k, ok) => ok ? `Point ${k}: this document is enough proof.` : `Point ${k}: this document is not enough proof.`,
+    checkTip: "You can check each evidence slot (costs 1 hint).",
     pickLineToast: "Open a statement, then tap the line you think is false.", pinTitle: "Pin evidence", pinListHelp: "Tap to pin or unpin.",
     hintH3: "Hint", hintH2: (n) => `Open hint ${n}?`, hintP: "Hints point you the right way without giving the answer. The number of hints used is shown when the case is closed.",
     openHint: "Open hint", solH3: "Solution", solH2: (t) => `View the solution: ${t}?`, solP: "You will see the full answer to this question.",

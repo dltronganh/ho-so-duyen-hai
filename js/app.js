@@ -8,6 +8,7 @@ import { initReader, openReader } from "./reader.js";
 import { initInquiry, renderInquiry } from "./inquiry.js";
 import { play } from "./sound.js";
 import { dialog, toast, esc } from "./ui.js";
+import { hintsUsed, checksUsed } from "./checks.js";
 import { LANG, t, pickLang, setLang, caseLang, translatePage } from "./i18n.js";
 
 /** Folder heading for documents of a stage (the last stage holds the ending documents). */
@@ -181,13 +182,14 @@ async function ending() {
   renderBoard(DOCS.filter((d) => d.stage === QUESTIONS.length).map((d) => d.id));
   renderFolder();
   const mins = Math.max(1, Math.round((state.finishedAt - state.startedAt) / 60000));
-  const hints = Object.values(state.hints).reduce((a, b) => a + b, 0);
+  const hints = hintsUsed(state), checks = checksUsed(state);  // direction hints and slot checks together
   const wrong = Object.values(state.tries).reduce((a, b) => a + b, 0);
   const peeks = Object.keys(state.peeked).length;
   setTimeout(() => play("bell"), 400);
   const go = await dialog(`<h3>${t("endH3")}</h3><h2>${META.ending.title}</h2>
     <p>${META.ending.text}</p>
     <div class="ending-stats"><div><b>${mins}</b><span>${t("minutes")}</span></div><div><b>${hints}</b><span>${t("hintsUsed")}</span></div><div><b>${wrong}</b><span>${t("wrongTries")}</span></div></div>
+    ${checks ? `<p class="small">${t("checksLine", checks)}</p>` : ""}
     ${peeks ? `<p class="small">${t("peeksLine", peeks)}</p>` : `<p class="small">${t("noPeeks", boss())}</p>`}
     <p>${t("endDocs")}</p>`,
     [{ label: t("stay"), value: false }, { label: t("readEnd"), value: true, cls: "btn--red" }]);

@@ -2,22 +2,19 @@
 // Checking is done by js/answer.js; this file only builds the form and reacts to the player.
 // onSolved(question) is called by the app when the open question is answered correctly (or the solution is used).
 import { state, save } from "./store.js";
-import { QUESTIONS, SECRETS, META, doc, visibleDocs, currentQuestion, responseOf, picking, togglePin, pinSlots, ideaOf, on, emit } from "./game.js";
-import { checkQuestion, isFilled, partReport } from "./answer.js";
+import { QUESTIONS, SECRETS, META, doc, visibleDocs, currentQuestion, responseOf, picking, togglePin, pinSlots, pinsPart, ideaOf, on, emit } from "./game.js";
+import { checkQuestion, isFilled } from "./answer.js";
+import { checkSlot, checkedVerdict, takeCheckTip } from "./checks.js";
 import { play } from "./sound.js";
 import { toast, dialog, esc } from "./ui.js";
 import { t } from "./i18n.js";
 
 /** Wrong-answer notes, in turn. */
 const wrongNotes = () => t("wrong", META.boss?.role ?? t("defaultBoss"));
-// From this many wrong tries on, a wrong answer is reported part by part: the conclusion (how many parts are
-// right; never in hard cases) and which evidence ideas still lack a fitting document (the documents to swap are marked). Earlier, the report would
-// give two-option answers away.
-const SHOW_SCORE_AFTER = 4;
 
 let root = null;
 let onSolved = () => {};
-let feedback = null;         // { qid, text, ok, marks } (marks: slots whose document to swap, cleared when the pins change)
+let feedback = null;         // { qid, text, ok }
 
 /** Sets up the panel. solvedCallback(question, { peeked }) runs when the open question is solved. */
 export function initInquiry(solvedCallback) {
@@ -25,7 +22,7 @@ export function initInquiry(solvedCallback) {
   onSolved = solvedCallback;
   root.addEventListener("click", onClick);
   root.addEventListener("input", onInput);
-  on("pins", () => { if (feedback) feedback.marks = null; renderInquiry(); });
+  on("pins", renderInquiry);
   on("pick", renderInquiry);
 }
 
@@ -100,15 +97,19 @@ function partHtml(q, p, value, r) {
   }
   if (p.type === "pins") {
     const pins = pinSlots();
-    const marks = (feedback && feedback.qid === q.id && feedback.marks) || [];
     const slots = pins.map((id, k) => {
-      const idea = ideaOf(q.id, k), lack = marks.includes(k);
-      const top = `<div class="slot-idea"><b>${idea ? t("ideaN", k + 1) : t("ideaFallback", k + 1)}</b>${idea ? `<span>${esc(idea)}</span>` : ""}${
-        lack ? `<em class="slot-lack">✗ ${t("lackingMark")}</em>` : ""}</div>`;
+      const idea = ideaOf(q.id, k);
+      // A checked document shows its verdict while it stays in the slot; an unchecked one offers the paid check.
+      const verdict = checkedVerdict(state, q.id, k, id);
+      const mark = verdict === null ? "" : verdict
+        ? `<em class="slot-ok">✓ ${t("slotOk")}</em>` : `<em class="slot-lack">✗ ${t("slotLacking")}</em>`;
+      const top = `<div class="slot-idea"><b>${idea ? t("ideaN", k + 1) : t("ideaFallback", k + 1)}</b>${idea ? `<span>${esc(idea)}</span>` : ""}${mark}</div>`;
+      const check = id && verdict === null
+        ? `<div class="slot-check"><button class="btn btn--paper" data-act="checkslot" data-slot="${k}">${t("checkSlot")} <small>(${t("checkCost")})</small></button></div>` : "";
       const body = id
         ? `<div class="slot-doc"><button class="slot-pick" data-act="pickdoc" data-slot="${k}" title="${t("changePin")}">📌 ${esc(doc(id)?.label || id)}</button><button class="x" data-act="unpin" data-doc="${id}" title="${t("unpin")}">×</button></div>`
         : `<div class="slot-doc"><span class="empty">${t("slotEmpty")}</span><button class="btn btn--paper slot-add" data-act="pickdoc" data-slot="${k}">${t("pinFromList")}</button></div>`;
-      return `<div class="slot slot--idea${id ? " filled" : ""}${lack ? " lacking" : ""}">${top}${body}</div>`;
+      return `<div class="slot slot--idea${id ? " filled" : ""}${verdict === false ? " lacking" : verdict ? " proven" : ""}">${top}${body}${check}</div>`;
     }).join("");
     return `<div class="q-part">${head}<div class="slots">${slots}</div></div>`;
   }
@@ -138,6 +139,7 @@ async function onClick(e) {
     if (picking.active) toast(t("pickLineToast"));
   }
   else if (act === "pickdoc") pickFromList(q, Number(b.dataset.slot));
+  else if (act === "checkslot") checkOneSlot(q, Number(b.dataset.slot));
   else if (act === "hint") showHint(q);
   else if (act === "solution") showSolution(q);
   else if (act === "submit") submit(q);
@@ -171,6 +173,16 @@ async function pickFromList(q, slot) {
     m.querySelector(".actions .btn")?.click();
   });
   await p;
+}
+
+/** Checks one evidence slot (one hint): marks it "enough" or "not enough", never naming the right document. */
+function checkOneSlot(q, k) {
+  const res = checkSlot(state, q.id, SECRETS[q.id].answers[pinsPart().id], pinSlots(), k);
+  if (!res) return;
+  save();
+  play(res.ok ? "pin" : "wrong");
+  if (res.charged) toast(t("checkedToast", k + 1, res.ok));
+  renderInquiry();
 }
 
 async function showHint(q) {
@@ -216,17 +228,11 @@ function submit(q) {
   const n = state.tries[q.id];
   const notes = wrongNotes();
   let text = notes[(n - 1) % notes.length];
-  let marks = null;
-  if (n >= SHOW_SCORE_AFTER) {
-    const rep = partReport(q, answers, r);
-    const lines = [];
-    if (!META.hard) lines.push(rep.total === 1 ? t("reportOne", rep.right === 1) : t("reportMany", rep.right, rep.total));
-    lines.push(rep.lacking.length ? t("evidenceLacking", rep.lacking.map((k) => k + 1).join(", ")) : t("evidenceOk"));
-    text += `\n${lines.join(" · ")}.`;
-    marks = rep.idle;  // the documents to swap, not the slots of the unproven ideas (placement is free)
-  }
+  // A wrong answer never says which part is wrong (two-option conclusions would give themselves away);
+  // the slot checks are the paid way to test the evidence. They are pointed out once per case only.
   if (n >= 3 && (state.hints[q.id] || 0) === 0) text += t("stuck");
-  feedback = { qid: q.id, text, ok: false, marks };
+  if (q.parts.some((p) => p.type === "pins") && takeCheckTip(state)) { text += `\n${t("checkTip")}`; save(); }
+  feedback = { qid: q.id, text, ok: false };
   play("wrong");
   renderInquiry();
   const c2 = root.querySelector(".q-card[data-q]");

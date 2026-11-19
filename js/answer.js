@@ -74,58 +74,14 @@ export function matchPins(groups, slots) {
 }
 
 /**
- * Which ideas (answer groups) the pinned evidence leaves unproven, as group indices.
- * slots[k] is the document the player pinned in the slot of idea k (null when empty). The player's own
- * placement is kept where it fits; the other documents are then matched to the remaining ideas (augmenting
- * paths), so a right document in another idea's slot still counts. Empty exactly when matchPins accepts.
+ * True when slot k holds a document that proves the idea of that slot (answer group k).
+ * Only the slot's own idea counts: a document that proves another idea does not make this slot "enough".
+ * When every slot proves its own idea (distinct documents) matchPins accepts too, so a set of "enough"
+ * checks never contradicts the grading.
  */
-export function lackingIdeas(groups, slots) {
-  const { owner } = matchSlots(groups, slots);
-  return groups.map((_, g) => g).filter((g) => owner[g] < 0);
-}
-
-/**
- * Which filled slots hold a document that proves none of the ideas still needed, as slot indices: the documents
- * to swap. A right document in another idea's slot is not listed (placement is free), so a mark on these slots
- * points at the document to change rather than at a slot whose document already proves another idea.
- * As many as lackingIdeas when every slot is filled.
- */
-export function idleSlots(groups, slots) {
-  const { holder, pins } = matchSlots(groups, slots);
-  return pins.map((id, i) => (id && holder[i] < 0 ? i : -1)).filter((i) => i >= 0);
-}
-
-/** The matching behind lackingIdeas / idleSlots: owner[group] = pin index, holder[pin index] = group (-1 = none). */
-function matchSlots(groups, slots) {
-  const pins = slots.map((x) => x || null);
-  const owner = groups.map(() => -1);          // group -> pin index
-  const holder = pins.map(() => -1);           // pin index -> group
-  groups.forEach((g, k) => { if (pins[k] && g.includes(pins[k]) && pins.indexOf(pins[k]) === k) { owner[k] = k; holder[k] = k; } });
-  const assign = (g, seen) => {
-    for (let i = 0; i < pins.length; i++) {
-      if (!pins[i] || seen[i] || !groups[g].includes(pins[i]) || pins.indexOf(pins[i]) !== i) continue;
-      seen[i] = true;
-      if (holder[i] < 0 || assign(holder[i], seen)) { holder[i] = g; owner[g] = i; return true; }
-    }
-    return false;
-  };
-  groups.forEach((_, g) => { if (owner[g] < 0) assign(g, []); });
-  return { owner, holder, pins };
-}
-
-/**
- * Part-by-part result of a filled-in response: how many of the non-evidence parts are right (right / total)
- * which evidence ideas are unproven (lacking: group indices of the pins part, [] when the evidence holds) and
- * which slots hold a document to swap (idle: slot indices, see idleSlots).
- */
-export function partReport(question, answers, response) {
-  const parts = question.parts.filter((p) => p.type !== "pins");
-  const right = parts.filter((p) => isFilled(p, response?.[p.id]) && checkPart(p, answers[p.id], response[p.id])).length;
-  const pins = question.parts.find((p) => p.type === "pins");
-  const slots = pins ? response?.[pins.id] || [] : [];
-  const lacking = pins ? lackingIdeas(answers[pins.id], slots) : [];
-  const idle = pins ? idleSlots(answers[pins.id], slots) : [];
-  return { right, total: parts.length, lacking, idle };
+export function slotProves(groups, slots, k) {
+  const id = slots[k];
+  return Boolean(id) && Boolean(groups[k]?.includes(id)) && slots.indexOf(id) === k;
 }
 
 /**
