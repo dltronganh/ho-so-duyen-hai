@@ -40,14 +40,14 @@ const khaiNam = {
     ${policeHead()}
     <div class="typed-title">BIÊN BẢN GHI LỜI KHAI</div>
     <div class="typed-sub">Hồi 10 giờ, ${wd("1998-02-14", "thứ Bảy")} ngày ${dt("1998-02-14", "14-2-1998")}, tại xóm Bãi Ngang</div>
-    <p>Người khai: <b>Trần Thị Năm</b>, ${age("nam", "1998-02-14", 58)} tuổi, nhặt ốc, lượm củi dạt, ngụ xóm Bãi Ngang. Bà tự tới trình báo sau khi nghe tin trên đài.</p>
+    <p>Người khai: <b>Trần Thị Năm</b>, ${age("nam", "1998-02-14", 58)} tuổi, nhặt ốc, lượm củi dạt, ngụ xóm Bãi Ngang. Bà nhờ tổ trưởng dân phố báo công an sau khi nghe tin trên đài.</p>
     <div class="qa">
       ${line("nam-1", `Đ: Sáng ${lunar("1998-02-12", "16 tháng Giêng")}, tôi ra bãi trước chùa lúc ${at("footprints_seen", "5 giờ 10")} như mọi bữa, lượm củi với ốc sóng đánh vô đêm qua. Trăng còn sáng lắm.`)}
       ${line("nam-2", "Đ: Lúc đó nước lên cao rồi, lối lội ra cồn ngập hết, chỉ còn bãi cát khô phía trên.")}
       ${line("nam-3", "Đ: Tôi thấy hai hàng dấu. Một hàng chân trần, bàn chân to, của đàn ông, từ mép nước đi thẳng lên phía cổng chùa, chỉ có đi lên. Một hàng dấu dép nhỏ, của đàn bà, đi xuống mép nước rồi đi lên song song với hàng chân trần.")}
-      ${line("nam-4", "Đ: Dưới thấp chỗ nước đã ngập thì không còn thấy gì. Ở trên, gần gốc dương trước cổng chùa, có vết bánh xe máy đậu rồi quay đầu ra đường chùa.")}
+      ${line("nam-4", "Đ: Dưới thấp chỗ nước đã ngập thì không còn thấy gì. Ở trên, dưới gốc dương trước cổng chùa, có một chiếc xe máy đậu; vết bánh từ chỗ đó chạy ra đường chùa rồi quay về.")}
       ${line("nam-5", "Đ: Đêm rằm thì phật tử đi lễ đông, xe đậu đầy cổng chùa. Tôi tưởng ai đi chùa đi tắm biển khuya, không để ý.")}
-      ${line("nam-6", "Đ: Bữa sau nghe đài nói ông Thành mất tích, tôi mới nhớ ra nên tới khai.")}
+      ${line("nam-6", "Đ: Bữa sau nghe đài nói ông Thành mất tích, tôi mới nhớ ra nên nhờ ông tổ trưởng báo công an.")}
     </div>
     ${statementSign("Năm", "Trần Thị Năm (điểm chỉ)")}
   </div>`,
@@ -81,7 +81,7 @@ const bao14 = {
         <h2 class="news-head sm">Biển trả ghe về Mũi Đá, còn người thì chưa</h2>
         <div class="news-by">Quang Huy</div>
         <p>Ông Phạm Văn Út, 40 năm đi biển ở Cửa Hoài, cho biết: "Mùa gió bấc, dòng nước sát bờ ở đây chảy xuống nam suốt đêm, nước lớn hay ròng gì cũng vậy. Một chiếc ghe không người
-          trôi từ quãng cửa sông tới Mũi Đá phải mất chừng tám, chín tiếng; từ quãng cồn Bãi Ngang thì chừng bảy, tám tiếng."</p>
+          thả trôi quãng cửa sông hay quãng cồn Bãi Ngang thì xuống tới vùng Mũi Đá cũng mất cả đêm, từ tám tiếng trở lên, tuỳ gió."</p>
         <p>Theo ông Út, người rơi xuống biển đêm đó thì "trôi theo ghe, tấp vào bờ quanh Mũi Đá trong vài ngày". Bộ đội biên phòng vẫn đang tìm dọc bờ từ Bãi Ngang tới Mũi Đá.</p>
         <p>Kết quả xét nghiệm ban đầu cho thấy vết máu trên ghe là máu người. Công an thị xã chưa công bố thêm.</p>
         <p><b>Người nhà xin tìm:</b> gia đình ông Mạc Văn Thành hứa hậu tạ ai tìm được ông. Liên hệ bà Lan, 21 Trần Phú.</p>

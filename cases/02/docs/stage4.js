@@ -10,7 +10,7 @@ const baoHiem = {
     ${officeHead("CÔNG TY BẢO HIỂM NHÂN THỌ", "Đại lý Hoài Giang")}
     <div class="typed-title">TRÍCH HỒ SƠ HỢP ĐỒNG SỐ 97/HG-0412</div>
     <p><b>Người được bảo hiểm:</b> Mạc Văn Thành, sinh năm 1947, CMND ${id("thanh", "205 031 776")}. Khám sức khoẻ ngày ${dt("1997-08-28", "28-8-1997")}: đạt.</p>
-    <p><b>Ngày ký hợp đồng:</b> ${wd("1997-09-03", "thứ Tư")} ${dt("1997-09-03", "3-9-1997")}. Loại: An sinh giáo dục – tử kỳ. <b>Số tiền bảo hiểm: 600.000.000 đồng.</b></p>
+    <p><b>Ngày ký hợp đồng:</b> ${wd("1997-09-03", "thứ Tư")} ${dt("1997-09-03", "3-9-1997")}. Loại: Nhân thọ có thời hạn (tử kỳ). <b>Số tiền bảo hiểm: 600.000.000 đồng.</b></p>
     <p><b>Người thụ hưởng:</b> Hồ Thị Ngọc Lan (vợ). Chữ ký xác nhận của người thụ hưởng: <span class="sign" style="font-size:22px">Lan</span></p>
     <p><b>Điều 14:</b> trường hợp người được bảo hiểm mất tích, công ty chi trả khi có quyết định tuyên bố chết của toà án.</p>
     <hr class="news-rule">
@@ -31,7 +31,7 @@ const thongBaoNo = {
     <p class="center"><b>THÔNG BÁO NỢ QUÁ HẠN (LẦN THỨ NHẤT)</b></p>
     <p>Kính gửi: Ông Mạc Văn Thành, chủ cơ sở nước mắm Thành Hưng.</p>
     <p>Khoản vay 900.000.000 đồng theo hợp đồng tín dụng số 112/95, thế chấp bằng quyền sử dụng đất và nhà xưởng tại 8 Bạch Đằng, đã quá hạn trả lãi hai kỳ.</p>
-    <p>Đề nghị ông thanh toán toàn bộ lãi quá hạn và gốc kỳ này chậm nhất ngày <b>${dt("1998-02-28", "28-2-1998")}</b>. Quá hạn trên, ngân hàng sẽ làm thủ tục phát mãi tài sản thế chấp.</p>
+    <p>Đề nghị ông thanh toán ngay lãi quá hạn. Toàn bộ gốc vay đáo hạn ngày <b>${dt("1998-02-28", "28-2-1998")}</b>. Quá hạn trên, ngân hàng sẽ làm thủ tục phát mãi tài sản thế chấp.</p>
     <div class="typed-sign"><div></div><div>GIÁM ĐỐC CHI NHÁNH<div class="sign">Quang</div>Trần Minh Quang</div></div>
     <p class="ink" style="margin-top:8px">Lần 2: 15/11/97 · Lần 3: 20/1/98 — đã gửi bảo đảm.</p>
     ${stamp("Ngân hàng<br>Nông nghiệp<br>Hoài Giang", "right:90px;bottom:40px")}
@@ -66,7 +66,7 @@ const khaiMy = {
       ${line("my-1", "Đ: Cuối tháng 8 năm ngoái ông Thành tự tới hỏi mua bảo hiểm, chọn mức cao nhất mà ông đóng nổi. Ngày 3 tháng 9 ký hợp đồng, chị Lan đi cùng, ký phần người thụ hưởng ngay tại quầy.")}
       ${line("my-2", "Đ: Ông hỏi kỹ hai lần: nếu chết ngoài biển mà không tìm được xác thì gia đình có được nhận tiền không. Tôi nói phải chờ toà tuyên bố chết.")}
       ${line("my-3", "Đ: Sáng thứ Hai 16/2, chị Lan tới nộp đơn, hỏi có cách nào nhận trước một phần không. Tôi nói theo điều 14 thì chưa.")}
-      ${line("my-4", "Đ: Chị Lan nghe xong hỏi tôi: \"vậy phải chờ bao nhiêu năm?\" Tôi nói thường là vài năm. Chị không khóc, chỉ ngồi im.")}
+      ${line("my-4", "Đ: Chị Lan nghe xong hỏi tôi: \"vậy phải chờ bao lâu?\" Tôi nói ít nhất cũng hơn một năm, có khi lâu hơn. Chị không khóc, chỉ ngồi im.")}
     </div>
     ${statementSign("Mỹ", "Trần Thị Mỹ")}
   </div>`,

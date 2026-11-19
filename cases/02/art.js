@@ -2,8 +2,16 @@
 // Grey-tone drawings printed as halftone by js/halftone.js. Facts must agree with the case facts.js.
 import { defs, standing } from "../../js/figures.js";
 
+/** Map points in drawing units (1 km = 50 units, see the scale bar); the consistency checks measure distances between them. */
+export const MAP = {
+  KM: 50,
+  pier: [530, 140], post: [600, 135], temple: [590, 303], anPhu: [300, 303], town: [300, 60], muiDa: [600, 640],
+  fordBar: [630, 296], fordShore: [600, 303],  // the ford runs from the west tip of the sand bar to the temple beach
+};
+
 /** Coast map south of the Hoài river mouth, drawn like a fisheries-office photocopy with hand labels. */
 export function coastMap() {
+  const P = MAP;
   const t = (x, y, s, o = "") => `<text x="${x}" y="${y}" font-family="Old Standard, serif" font-size="16" fill="#2b2216" ${o}>${s}</text>`;
   const pin = (x, y, n) => `<circle cx="${x}" cy="${y}" r="12" fill="#b3261e"/><text x="${x}" y="${y + 5}" text-anchor="middle" font-family="Oswald, sans-serif" font-weight="700" font-size="14" fill="#fff">${n}</text>`;
   let s = `<svg viewBox="0 0 940 720" xmlns="http://www.w3.org/2000/svg">`;
@@ -16,18 +24,18 @@ export function coastMap() {
   s += t(160, 168, "Sông Hoài", `font-style="italic" font-size="20" fill="#2f5a63"`);
   s += t(630, 150, "Cửa Hoài", `font-style="italic" font-weight="700"`);
   // sand bar Bãi Ngang (offshore island) and the ford
-  s += `<path d="M640 330 C700 300 760 320 780 360 C770 400 700 410 650 390 C630 370 625 345 640 330 Z" fill="#e8d7a2" stroke="#9b8456" stroke-dasharray="4 3"/>`;
-  s += t(660, 362, "Cồn Bãi Ngang", `font-weight="700"`);
-  s += `<path d="M640 362 C630 366 618 368 600 370" stroke="#6b4d2c" stroke-width="3" stroke-dasharray="2 5" fill="none"/>`;
-  s += t(470, 316, "lối lội qua cồn ⇢", `font-size="14" font-style="italic"`);
+  s += `<path d="M640 270 C700 240 760 260 780 300 C770 340 700 350 650 330 C630 310 625 285 640 270 Z" fill="#e8d7a2" stroke="#9b8456" stroke-dasharray="4 3"/>`;
+  s += t(660, 302, "Cồn Bãi Ngang", `font-weight="700"`);
+  s += `<path d="M${P.fordBar[0]} ${P.fordBar[1]} C622 299 612 302 ${P.fordShore[0]} ${P.fordShore[1]}" stroke="#6b4d2c" stroke-width="3" stroke-dasharray="2 5" fill="none"/>`;
+  s += t(440, 262, "lối lội qua cồn ⇢", `font-size="14" font-style="italic"`);
   // coast road and roads inland
   const road = (d, w = 9) => `<path d="${d}" stroke="#fff6dd" stroke-width="${w}" fill="none" stroke-linecap="round"/><path d="${d}" stroke="#8c7a5a" stroke-width="1.1" fill="none"/>`;
   s += road("M300 0 L300 720", 14) + t(308, 700, "Quốc lộ 1", `font-weight="700"`);
   s += road("M300 120 L520 120", 8) + t(330, 112, "đường vào bến");
-  s += road("M300 372 L600 372", 8) + t(360, 364, "đường chùa (6 km)");
-  s += road("M560 400 L560 640 L600 650", 6);
+  s += road("M300 303 L600 303", 8) + t(360, 295, "đường chùa (6 km)");
+  s += road("M560 330 L560 640 L600 650", 6);
   // places
-  s += pin(530, 140, 1) + pin(600, 135, 2) + pin(590, 372, 3) + pin(300, 372, 4) + pin(300, 60, 5) + pin(600, 640, 6);
+  s += [P.pier, P.post, P.temple, P.anPhu, P.town, P.muiDa].map(([x, y], i) => pin(x, y, i + 1)).join("");
   // scale and north
   s += `<g transform="translate(360 470)"><rect width="150" height="7" fill="#2b2216"/><rect width="75" height="7" fill="#f3ecd5" stroke="#2b2216"/>${t(0, 26, "0", `font-size="12"`)}${t(62, 26, "1,5 km", `font-size="12"`)}${t(140, 26, "3 km", `font-size="12"`)}</g>`;
   s += `<g transform="translate(880 50)"><path d="M0 -24 L9 6 L0 0 L-9 6 Z" fill="#2b2216"/><text y="24" text-anchor="middle" font-family="Oswald" font-size="15" fill="#2b2216">B</text></g>`;

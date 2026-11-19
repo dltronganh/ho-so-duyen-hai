@@ -36,16 +36,17 @@ const bao13 = {
         <div class="news-kicker">Đêm rằm tháng Giêng trên biển Cửa Hoài</div>
         <h1 class="news-head">Ông chủ hãng nước mắm mất tích, ghe trôi về Mũi Đá</h1>
         <div class="news-deck">Vết máu trên mạn ghe · Thợ ghe 19 tuổi bị tạm giữ vì khai sai giờ</div>
-        ${photo(boatPhoto(), "Ghe HG-0417 được kéo về bến cầu Đá trưa thứ Năm. Ảnh: <b>Minh Đức</b>")}
+        ${photo(boatPhoto(), "Ghe HG-0417 được kéo về bến cầu Đá sáng thứ Năm. Ảnh: <b>Minh Đức</b>")}
         <div class="news-by">Quang Huy</div>
         <div class="news-cols" style="columns:2">
           <p class="dropcap">Đêm ${wd("1998-02-11", "thứ Tư")} (${lunar("1998-02-11", "rằm tháng Giêng")}), ông <b>Mạc Văn Thành</b> (${age("thanh", "1998-02-13", 50)} tuổi), chủ hãng nước mắm Thành Hưng,
             một mình chạy ghe máy HG-0417 rời bến cầu Đá dù đài đã báo gió mùa đông bắc mạnh. Sáng hôm sau, ngư dân phát hiện chiếc ghe trôi gần Mũi Đá, không người,
             máy đã tắt; trên ghe còn áo khoác và đôi dép của ông Thành.</p>
-          <p>Trên mạn ghe có vết máu. Hai ngày nay, ghe của bà con Cửa Hoài và bộ đội biên phòng đã rà soát dọc bờ từ cửa sông tới Mũi Đá nhưng chưa tìm thấy ông Thành.</p>
+          <p>Trên mạn ghe có vết máu. Từ sáng qua, ghe của bà con Cửa Hoài và bộ đội biên phòng đã rà soát dọc bờ từ cửa sông tới Mũi Đá nhưng chưa tìm thấy ông Thành.</p>
           <p>Chiều qua, công an thị xã tạm giữ <b>Lê Văn Tư</b>, thợ ghe của ông Thành. Theo nguồn tin của phóng viên, Tư khai ông chủ chạy ghe ra khỏi bến lúc 22 giờ 40,
             trong khi sổ của trạm biên phòng Cửa Hoài ghi ghe HG-0417 qua trạm lúc 23 giờ 12. Từ khi ghe rời bến tới lúc Tư có mặt ở quán nhậu của ông Tám, hơn 11 giờ đêm,
-            không ai thấy Tư ở đâu. Áo Tư mặc đêm đó cũng dính máu. Mấy hôm trước, nhiều người nghe hai thầy trò cãi nhau to chuyện ba tháng tiền công.</p>
+            không ai thấy Tư ở đâu. Áo Tư mặc đêm đó cũng dính máu. Mấy hôm trước, nhiều người nghe hai thầy trò cãi nhau to chuyện ba tháng tiền công.
+            Công an nghi hai thầy trò đã xô xát ở bến trước khi ghe chạy, ông Thành bị thương rồi mới ra khơi, và Tư khai sớm giờ để che khoảng thời gian đó.</p>
           <p>Bà Hồ Thị Ngọc Lan, vợ ông Thành, ngất xỉu khi nghe tin. Gia đình đã lập bàn thờ vọng.</p>
           <p class="noindent"><b>Cảnh báo:</b> gió mùa đông bắc còn kéo dài tới hết tuần, ghe nhỏ không nên ra khơi.</p>
         </div>
@@ -97,7 +98,7 @@ const soTram = {
       [clock("clock_fixed", 25, "06:25"), "—", "—", "—", "—", "Giao ca (Huy → Toàn). Chỉnh đồng hồ trạm theo giờ đài."],
       [at("lan_reports", "06:20"), "—", "—", "—", "—", "Bà Hồ Thị Ngọc Lan ra trạm báo ghe HG-0417 chưa về."],
       ["06:40", "HG-0233", "Trần Văn Bảy", "3", "Ra", "đi thăm lưới phía nam"],
-      [at("boat_report", "08:20"), "HG-0233", "Trần Văn Bảy", "3", "Vào", `Kéo HG-0417 về. Báo: lúc ${at("boat_found", "7 giờ 35")} thấy HG-0417 trôi cách Mũi Đá chừng 1 hải lý, không người. Đã báo đồn.`],
+      [at("boat_report", "09:05"), "HG-0233", "Trần Văn Bảy", "3", "Vào", `Kéo HG-0417 về. Báo: lúc ${at("boat_found", "7 giờ 35")} thấy HG-0417 trôi cách Mũi Đá chừng 1 hải lý, không người. Đã báo đồn.`],
     ];
     return `
   <div class="doc doc--ledger">
@@ -148,7 +149,7 @@ const khaiHuy = {
       ${line("huy-3", "Đ: Đài thì tôi mở suốt ca cho đỡ buồn ngủ. Bản tin về biển thì tôi ghi vào sổ ngay lúc đài bắt đầu đọc; mấy chương trình khác thì nghe tới đâu ghi tới đó.")}
       ${line("huy-4", "Đ: Ghe HG-0417 qua trạm chỉ có một người. Tôi rọi đèn thấy rõ ông Thành, áo khoác xanh. Tôi có nhắc gió lớn, ông nói đi thăm lưới gần bờ.")}
       ${line("huy-5", "Đ: Ra khỏi cửa sông ghe quẹo về phía nam, chạy sát bờ. Đêm rằm trăng sáng, tôi nhìn theo được một đoạn.")}
-      ${line("huy-6", "Đ: Từ lúc đó tới sáng không có ghe nào ra nữa. Ghe của Tư vẫn nằm ở bến.")}
+      ${line("huy-6", "Đ: Từ lúc đó tới sáng không có ghe nào ra nữa, không ghe nào đi theo ông.")}
     </div>
     ${statementSign("Huy", "Đặng Quang Huy")}
   </div>`,
@@ -168,8 +169,9 @@ const khaiLan = {
       ${line("lan-3", "Đ: Sáng ra về nhà không thấy ảnh, tôi chạy ra trạm biên phòng báo lúc sáu giờ hai mươi.")}
       <p class="q">H: Gia đình có khó khăn gì không?</p>
       ${line("lan-4", "Đ: Làm ăn sau Tết có chật vật, nợ nần thì nhà ai buôn bán mà không có, nhưng không tới nỗi.")}
-      ${line("lan-5", "Đ: Bảo hiểm thì tôi không biết gì. Chuyện tiền bạc ngoài hãng là nhà tôi lo hết.")}
-      <p class="q">H: Họ hàng bên chồng còn ai?</p>
+      <p class="q">H: Ông Thành có mua bảo hiểm gì không?</p>
+      ${line("lan-5", "Đ: Hình như nhà tôi có mua một cái hồi năm ngoái, bao nhiêu tôi không rõ. Chuyện tiền bạc ngoài hãng là nhà tôi lo hết, giấy tờ ảnh giữ.")}
+      <p class="q">H: Bên chồng còn ai thân thích?</p>
       ${line("lan-6", "Đ: Bên chồng tôi không còn ai thân. Có chú Thọ, em họ ảnh, nhỏ hơn ảnh mười tuổi, mất ở Sài Gòn hồi tháng 6 năm 95. Chú quê ở đây, vô Sài Gòn làm ăn rồi bệnh mất. Chính nhà tôi vô lo đám, mang tro cốt với đồ đạc của chú về.")}
       ${line("lan-7", "Đ: Tôi xin công an tìm xác nhà tôi. Thằng Tư thì tôi không tin nó dám làm chuyện đó.")}
     </div>
@@ -202,7 +204,7 @@ const bienBanGhe = {
   <div class="doc doc--typed">
     ${policeHead()}
     <div class="typed-title">BIÊN BẢN KIỂM TRA PHƯƠNG TIỆN</div>
-    <div class="typed-sub">Hồi ${at("boat_checked", "9 giờ")}, ${wd("1998-02-12", "thứ Năm")} ngày ${dt("1998-02-12", "12-2-1998")}, tại bến cầu Đá</div>
+    <div class="typed-sub">Hồi ${at("boat_checked", "10 giờ")}, ${wd("1998-02-12", "thứ Năm")} ngày ${dt("1998-02-12", "12-2-1998")}, tại bến cầu Đá</div>
     <p>Người lập: Thượng úy Huỳnh Tấn Phát. Chứng kiến: bà Hồ Thị Ngọc Lan; ông Huỳnh Kim Long (thợ máy).</p>
     <p><b>1. Phương tiện:</b> ghe máy gỗ HG-0417, dài 7,2 m, máy dầu nhỏ đã thay bằng máy xăng 9 mã lực, bình xăng 10 lít đặt dưới băng ghế lái.</p>
     <p><b>2. Hiện trạng:</b> máy tắt; công tắc máy ở vị trí TẮT, chìa khoá còn cắm. Neo không thả. Không có lưới trên ghe.</p>
@@ -222,7 +224,7 @@ const banDo = {
     ${coastMap()}
     <div class="news-grid" style="grid-template-columns:1fr 1fr;margin-top:10px;font-size:15px">
       <div class="news-box"><h4>Ghi chú của phòng Thuỷ sản</h4>
-        <p>Lối lội qua cồn Bãi Ngang: bãi cát ngầm nối cồn với bãi trước chùa Bãi Ngang. <b>Chỉ đi được khi mực nước dưới 0,6 m</b> (xem lịch thuỷ triều trạm Cửa Hoài). Nước lớn thì ngập quá đầu người.</p></div>
+        <p>Lối lội qua cồn Bãi Ngang: bãi cát ngầm nối cồn với bãi trước chùa Bãi Ngang. <b>Chỉ đi được khi mực nước dưới 0,6 m</b> (xem lịch thuỷ triều trạm Cửa Hoài). Nước lớn thì ngập quá đầu người. Giữa cồn và bờ là bãi cạn, ghe máy không vào được; bãi trước chùa sóng vỡ dồn dập trên nền cạn, ghe vào là lật.</p></div>
       <div class="news-box"><h4>Đi lại</h4>
         <p>Ghe máy nhỏ chạy ven bờ khoảng 12 km/giờ. Đường từ chùa Bãi Ngang ra Quốc lộ 1 (ngã ba An Phú) dài 6 km. Xe đò Bắc – Nam đón khách dọc Quốc lộ 1.</p></div>
     </div>

@@ -25,14 +25,14 @@ export const EVENTS = {
   pickup_temple: "23:45",
   bus_anphu: "00:45",
   bus_cautrang: "01:20",  // 35 min after leaving An Phú
-  bus_depart: "00:20",     // night bus leaves Hoài Giang bus station
-  lan_back_temple: "00:55",
+  bus_depart: "00:35",     // night bus leaves Hoài Giang bus station (about 5 km north of An Phú)
+  lan_back_temple: "01:05", // she stood at An Phú until the bus left at 0:45, then rode 6 km back
   footprints_seen: "05:10",
   clock_fixed: "06:00",
   lan_reports: "06:20",
   boat_found: "07:35",
-  boat_report: "08:20",   // HG-0233 back at the post with the drifting boat
-  boat_checked: "09:00",
+  boat_report: "09:05",   // HG-0233 back at the post, towing the drifting boat about 9 km
+  boat_checked: "10:00",
   telegram_sent: "08:30",  // 14/2, Phan Thiết
   telegram_received: "09:20", // 14/2, Hoài Giang
 };
@@ -47,7 +47,7 @@ export const LUNAR_NEW_YEAR = "1998-01-28";
 export const TIDE = { "20": 1.2, "21": 0.9, "22": 0.62, "23": 0.38, "00": 0.33, "01": 0.58, "02": 0.86, "03": 1.2, "04": 1.5, "05": 1.76, "06": 1.9 };
 export const FORD_MAX = 0.6;
 
-/** Fuel: tank filled to 10 litres on the afternoon of 11/2; 9 litres left at dawn; engine burns 3 l/h at cruising speed (pier to sand bar 4.2 km ≈ 21 min ≈ 1 l). */
+/** Fuel: tank filled to 10 litres on the afternoon of 11/2; 9 litres left at dawn; engine burns 3 l/h at cruising speed (pier to the ford about 4.7 km ≈ 23 min ≈ 1 l; the tank reading is only "about 9 l"). */
 export const FUEL = { full: 10, left: 9, perHour: 3 };
 
 /** The telegram and its key poem. Each code is word.line: "3.1" = 3rd word of line 1. */

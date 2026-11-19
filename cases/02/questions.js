@@ -13,11 +13,11 @@ export const QUESTIONS = [
     ],
     unlockNote: `Vậy là sổ trạm sai, không phải Tư. Nhưng ông Thành đi đâu?
       Mình xin được bảng thuỷ triều của trạm khí tượng, phiếu kiểm tra máy của thợ Long, kết quả xét nghiệm máu, và báo hôm nay.
-      Có một bà cào nghêu ở Bãi Ngang vừa tự tới công an khai một chuyện lạ.`,
+      Có một bà ở xóm Bãi Ngang vừa báo công an một chuyện lạ.`,
   },
   {
     id: "q2", stage: 1, title: "Người lái ghe",
-    ask: "Đêm rằm, người lái ghe HG-0417 có vào bờ không? Nếu có thì ở đâu? Tính cho chính xác: sớm nhất lúc mấy giờ người đó có thể bắt đầu lội vào bờ, và tới khoảng mấy giờ thì đường lội ngập trở lại?",
+    ask: "Đêm rằm, người lái ghe HG-0417 có vào bờ không? Nếu có thì ở đâu? Tính cho chính xác khung giờ người đó có thể vào bờ: từ mấy giờ tới mấy giờ?",
     parts: [
       { id: "where", type: "choice", label: "Người lái ghe", options: [
         "Không vào bờ: rơi xuống biển rồi trôi về phía Mũi Đá",
@@ -25,8 +25,8 @@ export const QUESTIONS = [
         "Lội qua cồn, lên bãi trước chùa Bãi Ngang",
         "Cho ghe quay về, lên bờ ở bến cầu Đá",
       ] },
-      { id: "from", type: "time", label: "Sớm nhất có thể bắt đầu lội vào bờ (giờ:phút)" },
-      { id: "until", type: "time", label: "Đường lội ngập trở lại, không đi được nữa (giờ:phút)" },
+      { id: "from", type: "time", label: "Khung giờ có thể vào bờ: từ (giờ:phút)" },
+      { id: "until", type: "time", label: "Khung giờ có thể vào bờ: đến (giờ:phút)" },
       { id: "pins", type: "pins", count: 3, label: "Ghim 3 tài liệu làm bằng chứng" },
     ],
     unlockNote: `Một người đi chân trần lên bờ đêm rằm, còn đôi dép thì để lại ngay ngắn trên ghe…
@@ -42,7 +42,7 @@ export const QUESTIONS = [
       { id: "pins", type: "pins", count: 3, label: "Ghim 3 tài liệu làm bằng chứng" },
     ],
     unlockNote: `Ông Thành còn sống! Vậy từ bãi chùa Bãi Ngang lúc nửa đêm, ông ấy đi Phan Thiết bằng cách nào?
-      Công an đã khám văn phòng hãng Thành Hưng và thu được một cuốn sổ tay. Mình cũng có danh sách hành khách xe đò đêm hôm đó và lời khai của sư cô chùa Bãi Ngang.`,
+      Công an đã khám nhà 21 Trần Phú và thu được một cuốn sổ tay. Mình cũng có danh sách hành khách xe đò đêm hôm đó và lời khai của sư cô chùa Bãi Ngang.`,
   },
   {
     id: "q4", stage: 3, title: "Rời thị xã",

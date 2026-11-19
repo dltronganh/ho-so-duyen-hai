@@ -25,7 +25,7 @@ const bao15 = {
         <div class="news-by">Thu Hằng</div>
         <p class="dropcap">Căn nhà số 21 Trần Phú lặng ngắt. Trên bàn thờ vọng, nén nhang cháy dở. Bà Hồ Thị Ngọc Lan ngồi lặng dưới khung kính treo bài thơ lục bát chép tay đã ngả vàng.</p>
         <p>"Năm cưới, mồng 2 Tết, ảnh chép tặng tôi. Hai mươi hai năm rồi, đi đâu ảnh cũng thuộc", bà nói. Ông Thành là con trưởng trong nhà.</p>
-        <p>Hàng xóm cho biết mấy ngày nay bà Lan gần như không ra khỏi nhà. Sáng thứ Bảy, có người thấy bà ra bưu điện thị xã nhận một bức điện, về nhà thì đóng cửa.</p>
+        <p>Hàng xóm cho biết mấy ngày nay bà Lan gần như không ra khỏi nhà. Sáng thứ Bảy, hàng xóm thấy bưu tá mang tới một bức điện; bà nhận rồi đóng cửa.</p>
         <p>Vụ việc vẫn đang được công an thị xã điều tra. Lê Văn Tư, thợ ghe của ông Thành, vẫn bị tạm giữ.</p>
       </div>
     </div>
@@ -44,7 +44,7 @@ const dienTin = {
     <div style="border:1.5px solid #555;padding:14px;margin:14px 0;background:#fff;font-family:'Plex Mono';font-size:21px;letter-spacing:.06em;line-height:1.6">
       LAN THUONG<br>${TELEGRAM_CODE}<br>HAI
     </div>
-    <p class="small">Người nhận ký: <span class="sign" style="font-size:22px">Lan</span> · Giao tại quầy lúc 9g40.</p>
+    <p class="small">Người nhận ký: <span class="sign" style="font-size:22px">Lan</span> · Phát tại nhà lúc 9g40.</p>
     <p class="copy-note">Bản lưu do Bưu điện thị xã cung cấp cho Công an thị xã ngày ${dt("1998-02-16", "16-2-1998")}.</p>
     ${stamp("Bưu điện<br>Hoài Giang<br>14-2-98", "right:30px;top:90px", "blue")}
   </div>`,
@@ -76,7 +76,7 @@ const khaiBuuDien = {
     <div class="typed-sub">Qua điện thoại, hồi 15 giờ, ${wd("1998-02-16", "thứ Hai")} ngày ${dt("1998-02-16", "16-2-1998")}</div>
     <p>Người cung cấp: chị Nguyễn Thị Hoà, nhân viên giao dịch Bưu cục Phan Thiết, người nhận bức điện số PT 0214/37.</p>
     <div class="qa">
-      ${line("hoa-1", "Đ: Sáng thứ Bảy, mới mở cửa, có một ông chừng năm mươi tuổi, tóc hoa râm, nói giọng ngoài Hoài Giang, gửi bức điện toàn số.")}
+      ${line("hoa-1", "Đ: Sáng thứ Bảy, có một ông chừng năm mươi tuổi, tóc hoa râm, nói giọng miền Trung, chắc là người ở quê bức điện gửi về, gửi bức điện toàn số.")}
       ${line("hoa-2", "Đ: Ông tự điền phiếu, đưa chứng minh nhân dân cho tôi chép số. Tôi không để ý kỹ ảnh trên chứng minh, ảnh cũ mờ lắm.")}
       ${line("hoa-3", "Đ: Tay trái ông quấn khăn tay, ông viết bằng tay phải. Ông viết chậm, nắn nót từng con số, đếm chữ hai lần rồi mới trả tiền.")}
       ${line("hoa-4", "Đ: Gửi xong ông hỏi đường tới trạm y tế phường Đức Thắng.")}
