@@ -144,6 +144,7 @@ const ghiAm = {
     <div class="typed-sub">Lễ khai mạc triển lãm "Hoài Giang 100 năm", tối ${wd("1997-03-15", "thứ Bảy")} ${dt("1997-03-15", "15-3-1997")}</div>
     <p class="small">Băng cát-sét số 2 (băng số 1 hết lúc 20 giờ 30). Máy ghi chạy pin, đặt trên bục phát biểu. Theo sổ của đài, băng số 2 bắt đầu ghi lúc <b>20 giờ 31</b>; số trong ngoặc vuông là số phút:giây trên bộ đếm của máy, tính từ lúc bắt đầu ghi.
       Chép theo đề nghị của Công an thị xã. Người nói: bà Phan Thị Nguyệt, trừ khi có ghi khác.</p>
+    <p class="small"><b>Cách đọc mốc băng:</b> [phút:giây] tính từ đầu băng số 2, không phải giờ đồng hồ. Ví dụ [08:40] là băng chạy được 8 phút 40 giây.</p>
     <div class="qa">
       ${line("tape-1", `${tape("seal_seen", "08:10")} "…và hiện vật quý nhất đêm nay, kim ấn 'Hoài Giang trấn thủ', đang nằm ngay trong tủ kính bên tay phải tôi đây. Mời bà con lát nữa lại gần xem."`)}
       ${line("tape-2", "[08:40] (vỗ tay)")}
@@ -154,7 +155,7 @@ const ghiAm = {
       ${line("tape-7", `[14:50] Giọng đàn ông giọng Nam, gần: "Tối thui mà nghe chị Nguyệt kể như nghe chuyện đêm vậy đó." (có tiếng cười)`)}
       ${line("tape-8", `${tape("flash_photo", "19:05")} (tiếng đèn flash nổ "bụp"; tiếng người: "Ai chụp vậy?")`)}
       ${line("tape-9", `[19:12] "Anh Đức báo Hoài Giang đó bà con. Trời đất, chói mắt quá anh Đức ơi! Thôi bà con ngồi yên, nghe tôi kể tiếp nghen."`)}
-      ${line("tape-10", `[20:00 – 28:50] Bà Nguyệt kể liền mạch về chợ cá, ghe bầu, trận lụt năm 1964 (lược bớt, xem băng gốc).`)}
+      ${line("tape-10", `[20:00 – 28:50] (từ 20 phút tới 28 phút 50 giây của băng) Bà Nguyệt kể liền mạch về chợ cá, ghe bầu, trận lụt năm 1964 (lược bớt, xem băng gốc).`)}
       ${line("tape-11", `${tape("power_back", "29:02")} (đèn sáng, vỗ tay, có tiếng huýt sáo)`)}
       ${line("tape-12", `[29:20] "Cảm ơn anh Sáu! Mời bà con mình tiếp tục…"`)}
       ${line("tape-13", `${tape("case_found_empty", "31:05")} "Ủa… cái tủ… Kim ấn đâu rồi? Anh Sáu! Anh Sáu ơi!"`)}

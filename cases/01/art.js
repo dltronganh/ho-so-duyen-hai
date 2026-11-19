@@ -83,16 +83,38 @@ export function sealPhoto(brokenEar = false) {
   s += `<rect width="600" height="460" fill="#3a3a3a"/><ellipse cx="300" cy="400" rx="280" ry="60" fill="#2a2a2a"/>`;
   // base block
   s += `<path d="M170 300 L430 300 L470 360 L130 360 Z" fill="#9a9a9a"/><rect x="130" y="360" width="340" height="56" fill="url(#${p}gold)"/>`;
-  // qilin knob: body, head, two whole ears, mane curls
-  s += `<path d="M215 300 Q205 230 260 205 Q300 190 345 210 Q395 235 385 300 Z" fill="url(#${p}gold)"/>`;
-  s += `<ellipse cx="300" cy="170" rx="62" ry="54" fill="url(#${p}gold)"/>`;
+  // Seated qilin knob seen from the front, in the stiff style of court seals: chest, two straight forelegs with paws on the base.
+  const ink = `stroke="#2e2e2e" stroke-width="3"`;
+  s += `<path d="M206 304 Q196 236 248 214 L352 214 Q404 236 394 304 Z" fill="url(#${p}gold)" ${ink}/>`;
+  for (const lx of [252, 348]) {
+    s += `<path d="M${lx - 24} 304 L${lx - 20} 238 L${lx + 20} 238 L${lx + 24} 304 Z" fill="url(#${p}gold)" ${ink}/>`;
+    s += `<path d="M${lx - 30} 304 Q${lx} 286 ${lx + 30} 304" fill="#bdbdbd" ${ink}/>`;
+    for (const dx of [-12, 0, 12]) s += `<path d="M${lx + dx} 296 L${lx + dx} 304" ${ink}/>`;
+  }
+  // Mane: rows of tight spiral curls framing the face and falling on the chest.
+  const curl = (x, y, r) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#a8a8a8" ${ink}/><path d="M${x + r * 0.5} ${y} A${r * 0.5} ${r * 0.5} 0 1 1 ${x} ${y - r * 0.5}" fill="none" stroke="#2e2e2e" stroke-width="2.5"/>`;
+  for (let i = 0; i < 13; i++) {
+    const a = Math.PI * (0.98 + i * 0.087);   // arc over the top and down the cheeks, gap at the chin
+    s += curl(300 + Math.cos(a) * 80, 168 + Math.sin(a) * 74, 15);
+  }
+  for (let i = 0; i < 5; i++) s += curl(252 + i * 24, 238 + (i % 2) * 6, 12);
+  for (const [cx, cy] of [[228, 196], [372, 196], [244, 220], [356, 220]]) s += curl(cx, cy, 13);
+  // Head: broad, square-jawed lion face.
+  s += `<path d="M236 160 Q236 108 300 104 Q364 108 364 160 Q364 214 300 222 Q236 214 236 160 Z" fill="url(#${p}gold)" ${ink}/>`;
+  // Single short horn in the middle of the brow.
+  s += `<path d="M292 108 Q296 76 312 66 Q306 84 308 108 Z" fill="#cfcfcf" ${ink}/>`;
+  // Ears: leaf shapes pointing straight out to the sides (drawn large: the broken one is a clue).
   // The real seal lost its own left ear in 1947: the knob faces the viewer, so the stub is on the viewer's right, as in the ledger sketch.
-  s += `<path d="M250 132 L232 78 L276 118 Z" fill="#d0d0d0" stroke="#3c3c3c" stroke-width="3"/>`;
-  s += brokenEar ? `<path d="M348 128 L354 112 L344 110 L338 122 Z" fill="#d0d0d0" stroke="#3c3c3c" stroke-width="3"/>`
-    : `<path d="M350 132 L368 78 L324 118 Z" fill="#d0d0d0" stroke="#3c3c3c" stroke-width="3"/>`;
-  s += `<circle cx="276" cy="165" r="9" fill="#222"/><circle cx="324" cy="165" r="9" fill="#222"/>`;
-  s += `<path d="M268 200 Q300 220 332 200" stroke="#222" stroke-width="6" fill="none"/>`;
-  for (let i = 0; i < 6; i++) s += `<circle cx="${236 + i * 26}" cy="${236 + (i % 2) * 8}" r="11" fill="none" stroke="#4a4a4a" stroke-width="4"/>`;
+  s += `<path d="M240 146 Q208 132 176 156 Q204 178 240 166 Z" fill="#d0d0d0" ${ink}/><path d="M234 154 Q208 152 190 158" fill="none" stroke="#2e2e2e" stroke-width="2"/>`;
+  s += brokenEar ? `<path d="M360 146 L378 142 L372 152 L382 160 L370 164 L360 166 Z" fill="#d0d0d0" ${ink}/>`
+    : `<path d="M360 146 Q392 132 424 156 Q396 178 360 166 Z" fill="#d0d0d0" ${ink}/><path d="M366 154 Q392 152 410 158" fill="none" stroke="#2e2e2e" stroke-width="2"/>`;
+  // Heavy brows slanting down to the nose, bulging round eyes, broad flat nose, closed mouth with turned-down corners and a curled beard.
+  s += `<path d="M252 136 Q274 124 294 140 M348 136 Q326 124 306 140" fill="none" stroke="#1e1e1e" stroke-width="7" stroke-linecap="round"/>`;
+  for (const ex of [274, 326]) s += `<path d="M${ex - 16} 154 Q${ex} 140 ${ex + 16} 154 Q${ex} 164 ${ex - 16} 154 Z" fill="#cfcfcf" ${ink}/><circle cx="${ex}" cy="153" r="6" fill="#1e1e1e"/>`;
+  s += `<path d="M284 166 L316 166 L326 188 Q300 196 274 188 Z" fill="#9a9a9a" ${ink}/><circle cx="290" cy="186" r="4" fill="#1e1e1e"/><circle cx="310" cy="186" r="4" fill="#1e1e1e"/>`;
+  s += `<path d="M262 204 Q280 198 300 202 Q320 198 338 204" fill="none" stroke="#1e1e1e" stroke-width="5" stroke-linecap="round"/>`;
+  s += `<path d="M262 204 l-6 8 M338 204 l6 8" stroke="#1e1e1e" stroke-width="4" stroke-linecap="round"/>`;
+  for (const bx of [286, 300, 314]) s += `<path d="M${bx} 214 q-6 10 2 16" fill="none" stroke="#2e2e2e" stroke-width="3"/>`;
   s += `</svg>`;
   return s;
 }
@@ -102,13 +124,18 @@ export function ledgerSketch() {
   return `<svg viewBox="0 0 320 250" xmlns="http://www.w3.org/2000/svg" style="width:300px;height:auto">
     <g fill="none" stroke="#3d2410" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
       <path d="M70 190 L250 190 L272 222 L48 222 Z"/>
-      <path d="M100 190 Q92 140 128 124 Q160 112 192 126 Q226 142 220 190"/>
-      <ellipse cx="160" cy="98" rx="42" ry="36"/>
-      <path d="M130 74 L117 38 L144 66"/>
-      <path d="M190 74 L196 60 M196 60 L188 63 M188 63 L192 70"/>
-      <circle cx="146" cy="96" r="4"/><circle cx="174" cy="96" r="4"/>
-      <path d="M144 118 Q160 128 176 118"/>
-      <path d="M202 52 Q222 40 238 42" stroke-dasharray="4 4"/>
+      <path d="M100 190 Q94 146 126 134 M220 190 Q226 146 194 134"/>
+      <path d="M126 190 L128 146 M150 190 L148 146 M170 190 L172 146 M194 190 L192 146"/>
+      <path d="M118 108 Q118 70 160 68 Q202 70 202 108 Q202 142 160 148 Q118 142 118 108 Z"/>
+      <path d="M156 70 Q158 52 168 46 Q164 58 165 69"/>
+      <path d="M120 98 Q100 90 80 104 Q98 118 120 110"/>
+      <path d="M200 98 L211 96 L206 103 L212 107 L200 110"/>
+      <path d="M128 88 Q142 80 154 92 M192 88 Q178 80 166 92" stroke-width="3.4"/>
+      <path d="M132 100 Q142 92 152 100 Q142 106 132 100 Z M168 100 Q178 92 188 100 Q178 106 168 100 Z"/><circle cx="142" cy="99" r="2.5"/><circle cx="178" cy="99" r="2.5"/>
+      <path d="M152 108 L168 108 L174 122 Q160 127 146 122 Z"/>
+      <path d="M140 134 Q160 130 180 134 M140 134 l-4 5 M180 134 l4 5"/>
+      <circle cx="112" cy="124" r="7"/><circle cx="208" cy="124" r="7"/><circle cx="122" cy="146" r="7"/><circle cx="198" cy="146" r="7"/>
+      <path d="M216 98 Q234 64 246 42" stroke-dasharray="4 4"/>
     </g>
     <text x="302" y="34" text-anchor="end" font-family="Dancing Script, cursive" font-size="19" fill="#3d2410">tai trái sứt (1947)</text>
   </svg>`;

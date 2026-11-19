@@ -20,7 +20,7 @@ const giaoViec = {
     <p>– hai trang báo Hoài Giang số Chủ Nhật (trang nhất và trang 3);<br>
        – thư của chị Hoa, kèm bản sao chứng minh nhân dân của Định;<br>
        – bản chép biên bản hiện trường và hai lời khai (anh Phát bên công an thị xã cho mình chép, <u>tuyệt đối không đăng nguyên văn</u>);<br>
-       – bản đồ du lịch thị xã;<br>
+       – bản đồ du lịch thị xã, có mục chỉ đường ra ga;<br>
        – trang sổ bán vé ga Hoài Giang tối thứ Bảy. Ai bỏ đi trong đêm thì hoặc ra bến xe, hoặc ra ga. Bến xe không ghi tên khách, ga thì có. Tôi đã nhờ người quen ở ga chép lại.</p>
     <p>Đừng vội viết. Làm từng bước, trả lời từng <b>trọng điểm</b> trong sổ công tác, và mỗi câu trả lời phải có <b>giấy tờ làm bằng chứng</b>.
       Trả lời đúng tới đâu, tôi gửi thêm giấy tờ tới đó.</p>
@@ -150,7 +150,8 @@ const thuHoa = {
     <p>Em tôi học sử ở Huế ra, hiền lành, cẩn thận tới mức cái gì cũng ghi chép, cân đo.
       Em nó mê đồ cổ vì yêu lịch sử chứ chưa bao giờ tham một đồng của ai.</p>
     <p>Tối thứ Bảy em không về ăn cơm. Sáng Chủ Nhật tôi đọc báo mới biết người ta nói em ôm kim ấn bỏ trốn.
-      Tôi không tin. Có khi em có việc gấp, đi Huế tìm thầy cũ như mấy lần trước.</p>
+      Tôi không tin. Có khi em có việc gấp, đi Huế tìm thầy cũ như mấy lần trước.
+      Lần nào đi Huế em cũng đón xe ôm ra ga ở tận ngoài An Phú, xa lắm, nên bao giờ cũng phải đi sớm cho kịp tàu.</p>
     <p>Tôi gửi kèm bản sao chứng minh nhân dân của em để quý báo tiện hỏi han.
       Xin quý báo giúp tìm em tôi và trả lại sự trong sạch cho em.</p>
     <div class="gap"></div>
@@ -305,7 +306,7 @@ const soVe = {
       <tr><th>STT</th><th>Giờ bán</th><th>Họ tên hành khách</th><th>Số CMND</th><th>Ga đến</th><th>Tàu</th><th>Toa/Ghế</th><th>Giá vé (đ)</th></tr>
       ${rows}
     </table>
-    <p class="copy-note">Bản chép tay từ sổ gốc. Người chép ghi chú: "Giờ bán ghi theo đồng hồ phòng vé, sáng nào cũng chỉnh theo giờ đài phát thanh."</p>
+    <p class="copy-note">Bản chép tay từ sổ gốc. Người chép ghi chú: "Giờ bán ghi theo đồng hồ phòng vé, sáng nào cũng chỉnh theo giờ đài phát thanh. Khách phải tự tới quầy, trình chứng minh nhân dân mới được bán vé."</p>
   </div>`;
   },
 };
