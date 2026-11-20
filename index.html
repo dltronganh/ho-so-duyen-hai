@@ -1,0 +1,92 @@
+<!doctype html>
+<!-- Hồ sơ Duyên Hải · Hồ sơ 01 "Kim ấn đêm khai mạc": the investigation desk. Logic in js/app.js, case data in case/. -->
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Hồ sơ Duyên Hải · game hồ sơ điều tra</title>
+  <meta name="description" content="Game hồ sơ điều tra trên trình duyệt: đọc báo cũ, biên bản, lời khai năm 1997 và tự phá vụ mất trộm kim ấn ở thị xã Hoài Giang.">
+  <meta name="theme-color" content="#1c140e">
+  <meta property="og:title" content="Hồ sơ Duyên Hải · game hồ sơ điều tra">
+  <meta property="og:description" content="Bốn vụ án để tự phá: báo cũ, lời khai, biên bản ở thị xã Hoài Giang những năm 1990, và giấy cói, chữ tượng hình ở Ai Cập cổ đại. Từ mức vừa tới siêu khó.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dltronganh.github.io/ho-so-duyen-hai/">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23c9a56b'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia' font-weight='700' font-size='34' fill='%23a8261d'%3E01%3C/text%3E%3C/svg%3E">
+  <link rel="preload" href="fonts/OldStandard-Regular.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="fonts/OldStandard-Bold.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="fonts/Oswald-VF.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="fonts/PlayfairDisplay-VF.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/paper.css">
+  <link rel="stylesheet" href="css/desk.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Hồ sơ Duyên Hải<small></small></div>
+    <div class="progress-dots" aria-label="Tiến độ" data-i18n-aria="progress"></div>
+    <div class="spacer"></div>
+    <button class="btn btn--ghost" data-top="help" title="Hướng dẫn" data-i18n-title="help">?<span class="lbl" data-i18n="help">Hướng dẫn</span></button>
+    <button class="btn btn--ghost" data-top="sound" title="Bật/tắt âm thanh" data-i18n-title="soundTip">♪<span class="lbl">Âm thanh</span></button>
+    <button class="btn btn--ghost" data-top="cover" title="Bìa hồ sơ" data-i18n-title="coverTip">▣<span class="lbl" data-i18n="cover">Bìa</span></button>
+    <button class="btn btn--ghost" data-top="reset" title="Làm lại từ đầu" data-i18n-title="resetTip">↺<span class="lbl" data-i18n="reset">Làm lại</span></button>
+  </header>
+
+  <main class="layout">
+    <aside class="side side--left" aria-label="Tập hồ sơ và sổ tay" data-i18n-aria="sidesLabel">
+      <div class="side-tabs"><button class="on" data-tab="folder" data-i18n="folderTab">Tập hồ sơ</button><button data-tab="notes" data-i18n="notesTab">Sổ tay</button></div>
+      <div class="side-body">
+        <nav class="folder"></nav>
+        <div class="notebook" hidden>
+          <p data-i18n="notesIntro">Ghi chép của bạn (tự lưu trong trình duyệt).</p>
+          <textarea spellcheck="false" placeholder="Ví dụ: 20:41 mất điện. Ai ở đâu?" data-i18n-ph="notesPlaceholder"></textarea>
+        </div>
+      </div>
+    </aside>
+
+    <section class="board-wrap" aria-label="Bàn điều tra" data-i18n-aria="boardLabel">
+      <div id="board" class="board"><div class="world"><svg class="strings" xmlns="http://www.w3.org/2000/svg"></svg></div></div>
+      <div class="board-hint" hidden></div>
+      <div class="board-tools">
+        <button class="btn" data-board="zout" title="Thu nhỏ" data-i18n-title="zoomOut">−</button>
+        <button class="btn" data-board="zin" title="Phóng to" data-i18n-title="zoomIn">+</button>
+        <button class="btn" data-board="fit" data-i18n="fit">Xem cả bàn</button>
+        <button class="btn" data-board="tidy" data-i18n="tidy">Xếp lại</button>
+        <button class="btn" data-board="link" data-i18n="link">Nối chỉ đỏ</button>
+      </div>
+    </section>
+
+    <aside class="side side--right" id="inquiry" aria-label="Trọng điểm" data-i18n-aria="inquiryLabel"><div class="inquiry"></div></aside>
+  </main>
+
+  <nav class="mobile-tabs">
+    <button class="on" data-panel="board" data-i18n="mBoard">Bàn</button>
+    <button data-panel="folder"><span data-i18n="mFolder">Hồ sơ</span><span class="dot" hidden></span></button>
+    <button data-panel="inquiry" data-i18n="mInquiry">Trọng điểm</button>
+    <button data-panel="notes" data-i18n="mNotes">Sổ tay</button>
+  </nav>
+
+  <div id="reader" class="reader" hidden>
+    <div class="reader-bar">
+      <button class="btn" data-act="close" title="Đóng (Esc)" data-i18n-title="rCloseTip" data-i18n="rClose">✕ Đóng</button>
+      <div class="reader-title"></div>
+      <button class="btn" data-act="zout" title="Thu nhỏ" data-i18n-title="zoomOut">−</button>
+      <button class="btn" data-act="fit" title="Vừa khung" data-i18n-title="rFitTip" data-i18n="rFit">Vừa</button>
+      <button class="btn" data-act="zin" title="Phóng to" data-i18n-title="zoomIn">+</button>
+      <button class="btn" data-act="hl" title="Bút dạ" data-i18n-title="rHl">🖍<span class="lbl" data-i18n="rHl">Bút dạ</span></button>
+      <button class="btn btn--paper" data-act="pin">📌 <span class="lbl">Ghim làm bằng chứng</span></button>
+    </div>
+    <div class="reader-banner" hidden></div>
+    <div class="reader-scroll"><div class="reader-stage"></div></div>
+    <button class="reader-nav prev" title="Tài liệu trước (←)" data-i18n-title="rPrev">‹</button>
+    <button class="reader-nav next" title="Tài liệu sau (→)" data-i18n-title="rNext">›</button>
+  </div>
+
+  <div id="modal" class="modal" hidden></div>
+  <div id="cover" class="cover"><p class="cover-loading">Đang mở hồ sơ…</p></div>
+  <script>/* Loading text in the saved language, before the modules run (see js/i18n.js). */
+    try { var l = new URLSearchParams(location.search).get("lang") || localStorage.getItem("hsdh.lang"); if (l === "en") { document.documentElement.lang = "en"; document.querySelector(".cover-loading").textContent = "Opening the file…"; } } catch (e) {}</script>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <noscript><p style="color:#fff;padding:20px">Trò chơi cần bật JavaScript.</p></noscript>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
