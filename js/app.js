@@ -167,6 +167,7 @@ async function solved(q, { peeked }) {
   renderFolder();
   renderTabs();
   setTimeout(() => play("bell"), 500);
+  setTimeout(() => play("aha"), 900);  // new documents unlocked: a small "aha"
   const list = fresh.map((id) => `<li>${esc(DOCS.find((d) => d.id === id).label)}</li>`).join("");
   await dialog(`<h3>${peeked ? t("peekedSol") : t("correct")} · ${t("qN", state.stage)}</h3>
     <h2>${t("letterFrom", boss())}</h2>
